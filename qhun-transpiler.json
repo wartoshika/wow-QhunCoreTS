@@ -1,0 +1,16 @@
+{
+    "name": "QhunCoreTS",
+    "version": "1.0.0",
+    "author": "wartoshika <dev@qhun.de>",
+    "licence": "MIT",
+    "description": "A Framework written in Typescript for World of Warcraft Addons",
+    "printFileHeader": true,
+    "stripOutDir": "src",
+    "target": "wow",
+    "tsconfig": "./tsconfig.json",
+    "config": {
+        "staticReflection": 1,
+        "visibleName": "QhunCoreTS",
+        "interface": 80000
+    }
+}

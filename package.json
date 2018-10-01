@@ -1,0 +1,23 @@
+{
+  "name": "wow-qhun-core-ts",
+  "version": "1.0.0",
+  "description": "A Framework written in Typescript for World of Warcraft Addons",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/qhun-transpiler -p ./qhun-transpiler.json",
+    "build-dev": "node ../../qhun-transpiler/dist/bin/qhun-transpiler -p ./qhun-transpiler.json"
+  },
+  "keywords": [
+    "wow",
+    "framework",
+    "addon"
+  ],
+  "author": "wartoshika <dev@qhun.de>",
+  "license": "MIT",
+  "devDependencies": {
+    "@wartoshika/lua-declarations": "0.0.1",
+    "@wartoshika/qhun-transpiler": "^0.3.0",
+    "@wartoshika/wow-declarations": "0.0.3",
+    "typescript": "^3.1.1"
+  }
+}

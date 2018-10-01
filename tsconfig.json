@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "target": "es5",
+        "sourceMap": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "node_modules/@wartoshika"
+        ]
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}
