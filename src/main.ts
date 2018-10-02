@@ -1,7 +1,8 @@
-import { QhunAddon, TocValue } from "./core";
+import { QhunAddon, TocValue, fromEvent } from "./core";
 import { FrameManager } from "./ui/FrameManager";
 import { Zone } from "./ui/zone/Zone";
 import { bootstrapAddon } from "./bootstrap";
+import { Player } from "./model/entity/Player";
 
 @QhunAddon({
     embed: true,
@@ -16,10 +17,13 @@ class Addon {
         private frameManager: FrameManager
     ) {
 
-        const frame = this.frameManager.create("Frame", "hello");
-        const button = this.frameManager.create("Button");
-        this.frameManager.create("Button", "test", button);
-        const z = new Zone([frame, button]);
+        fromEvent("PLAYER_TARGET_CHANGED").subscribe(() => {
+
+            if (Player.exists("target")) {
+                const data = new Player("target");
+                print(data.getName().getFullName());
+            }
+        });
     }
 }
 
