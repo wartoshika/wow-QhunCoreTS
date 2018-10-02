@@ -8,6 +8,11 @@ export interface TranspiledReflectableClass<Target extends Object = Object> {
     };
 
     /**
+     * the reflected class name
+     */
+    __name: string;
+
+    /**
      * class constructor function
      */
     new(...args: any[]): Target & {

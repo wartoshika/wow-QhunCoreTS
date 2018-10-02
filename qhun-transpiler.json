@@ -9,7 +9,7 @@
     "target": "wow",
     "tsconfig": "./tsconfig.json",
     "config": {
-        "staticReflection": 1,
+        "staticReflection": 3,
         "visibleName": "QhunCoreTS",
         "interface": 80000
     }
