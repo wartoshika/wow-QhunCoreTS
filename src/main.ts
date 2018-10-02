@@ -1,23 +1,25 @@
-import { QhunAddon } from "./decorators";
-import { CrudRepository, SavedVariablesDatabase } from "./database";
+import { QhunAddon, TocValue } from "./core";
+import { FrameManager } from "./ui/FrameManager";
+import { Zone } from "./ui/zone/Zone";
 import { bootstrapAddon } from "./bootstrap";
-import { Output } from "./util/Output";
-import { Injector } from "./di";
 
 @QhunAddon({
-    embed: true
+    embed: true,
+    addonName: "QhunCoreTS"
 })
 class Addon {
 
+    @TocValue("Title")
+    private name: string;
+
     constructor(
-        private repo: CrudRepository,
-        private db: SavedVariablesDatabase,
-        private injector: Injector
+        private frameManager: FrameManager
     ) {
-        Output.dump(repo);
-        print("repo fktn", this.repo.find);
-        print(this.db.read);
-        print(this.injector.resolve);
+
+        const frame = this.frameManager.create("Frame", "hello");
+        const button = this.frameManager.create("Button");
+        this.frameManager.create("Button", "test", button);
+        const z = new Zone([frame, button]);
     }
 }
 

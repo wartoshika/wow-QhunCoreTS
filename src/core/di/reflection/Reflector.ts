@@ -1,5 +1,8 @@
 import { TranspiledReflectableClass } from "./TranspiledReflectableClass";
 
+/**
+ * the reflector can resolve static transpiled method signatures.
+ */
 export class Reflector {
 
     /**

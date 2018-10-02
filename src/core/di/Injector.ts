@@ -1,6 +1,10 @@
 import { TranspiledReflectableClass } from "./reflection/TranspiledReflectableClass";
 import { Reflector } from "./reflection/Reflector";
 
+/**
+ * the injector resolves dependencies of classes or functions to allow recursivly inject all
+ * nessesary dependencies into that function.
+ */
 export class Injector {
 
     private static __instance: Injector;
@@ -48,7 +52,7 @@ export class Injector {
      * @param defaultArguments the default arguments that will take place if one dependency could not resolved
      */
     public instantiateClass<T extends TranspiledReflectableClass = TranspiledReflectableClass>(ctor: T, defaultArguments: any[] = []): T {
-
+        
         const existing = this.findExistingInstance(ctor);
         if (existing) {
             return existing as T;
@@ -90,13 +94,12 @@ export class Injector {
      * @param ctor the target class
      */
     public resolve(ctor: TranspiledReflectableClass): Object[] {
-
+        
         return this.reflector
             .getMethodSignature(ctor, "constructor")
             .map(dependency => {
-
                 if (this.reflector.isReflectableClass(dependency)) {
-
+                    
                     return this.instantiateClass(dependency);
                 }
                 return dependency;

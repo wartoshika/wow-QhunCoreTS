@@ -1,25 +1,21 @@
-import { Injector, TranspiledReflectableClass } from "../di";
-
-declare type QhunAddonOptions = {
-
-    /**
-     * embed the framework into the transpiled source code. You dont need to download
-     * this framework seperatly and it will be version save for your addon.
-     * @default: true
-     */
-    embed?: boolean,
-};
+import { QhunAddonOptions } from "../types";
+import { AddonOptions } from "../AddonOptions";
+import { TranspiledReflectableClass, Injector } from "../di";
 
 /**
  * a class level decorator to bootstrap your world of warcraft addon.
  * @param options important options for your addon
  */
 export function QhunAddon(
-    options: QhunAddonOptions = {
-        embed: true
-    }
+    options: QhunAddonOptions
 ): any {
 
+    // save addon options
+    const addonOptionsInstance = AddonOptions.getInstance();
+    addonOptionsInstance.addonName = options.addonName;
+    addonOptionsInstance.embed = options.embed;
+
+    // go on with dependency injection
     const injector = Injector.getInstance();
     return <Target extends Function>(target: TranspiledReflectableClass<Target>) => {
 

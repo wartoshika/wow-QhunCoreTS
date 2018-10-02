@@ -1,13 +1,25 @@
+/**
+ * This util class handles formatted output
+ */
 export class Output {
 
+    /**
+     * dumps all kinds of types (even tables) onto the default console using runtime
+     * type reflection of lua.
+     * @param args the arguments to dump
+     */
     public static dump(...args: any[]): void {
 
         args.forEach(arg => {
-            print(Output.dumpInternal(arg));
+            print(Output.convertToFormattedString(arg));
         });
     }
 
-    private static dumpInternal(arg: any): string {
+    /**
+     * Converts the given argument to a human readable string
+     * @param arg the arg to convert
+     */
+    private static convertToFormattedString(arg: any): string {
 
         if ((typeof arg) as string === "table") {
 
@@ -18,10 +30,10 @@ export class Output {
                     key = `${key}`;
                 }
                 if (typeof key !== "string") {
-                    key = Output.dumpInternal(key);
+                    key = Output.convertToFormattedString(key);
                 }
 
-                return `[${key}] = ${Output.dumpInternal(arg[key])},`;
+                return `[${key}] = ${Output.convertToFormattedString(arg[key])},`;
             }));
 
             output.push("}");
