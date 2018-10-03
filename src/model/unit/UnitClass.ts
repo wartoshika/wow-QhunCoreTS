@@ -1,4 +1,4 @@
-export enum EntityClass {
+export enum UnitClass {
 
     WARRIOR = 1,
     PALADIN = 2,

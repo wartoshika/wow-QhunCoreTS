@@ -1,11 +1,11 @@
 /**
- * a wrapper class for a player name that contains a name and the realm of the entity
+ * a wrapper class for a unit name that contains a name and the realm of the unit
  */
-export class EntityName {
+export class UnitName {
 
     /**
-     * @param name the complete player name with optional realm suffix
-     * @param realm the realm of the entity
+     * @param name the name of the unit
+     * @param realm the realm of the unit
      */
     constructor(
         private name: string,
@@ -19,21 +19,21 @@ export class EntityName {
     }
 
     /**
-     * get the name of the player
+     * get the name of the unit
      */
     public getName(): string {
         return this.name;
     }
 
     /**
-     * get the realm name of the player
+     * get the realm name of the unit
      */
     public getRealm(): string {
         return this.realm;
     }
 
     /**
-     * returns the name with realm of the player
+     * returns the name with realm of the unit
      * @param divideCharacter an optional divide character to seperate name and realm
      */
     public getFullName(divideCharacter = "-"): string {

@@ -1,4 +1,4 @@
-export enum EntityRace {
+export enum UnitRace {
 
     DWARF = 3,
     DRAENEI = 11,

@@ -1,4 +1,4 @@
-export enum EntityGender {
+export enum UnitGender {
 
     UNKNOWN = 1,
     MALE = 2,

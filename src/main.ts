@@ -1,8 +1,13 @@
 import { QhunAddon, TocValue, fromEvent } from "./core";
-import { FrameManager } from "./ui/FrameManager";
-import { Zone } from "./ui/zone/Zone";
 import { bootstrapAddon } from "./bootstrap";
-import { Player } from "./model/entity/Player";
+import { Locale, TranslationRegistry, Translator } from "./locale";
+
+interface MyTranslation extends Locale {
+    firstKey: {
+        key: string
+    },
+    secondKey: void
+}
 
 @QhunAddon({
     embed: true,
@@ -14,16 +19,22 @@ class Addon {
     private name: string;
 
     constructor(
-        private frameManager: FrameManager
+        private registry: TranslationRegistry<MyTranslation>,
+        private translator: Translator<MyTranslation>
     ) {
 
-        fromEvent("PLAYER_TARGET_CHANGED").subscribe(() => {
-
-            if (Player.exists("target")) {
-                const data = new Player("target");
-                print(data.getName().getFullName());
-            }
+        this.registry.addLanguage("de", {
+            firstKey: "erster _key_",
+            secondKey: "asd"
         });
+        this.registry.addLanguage("en", {
+            firstKey: "first _key_",
+            secondKey: "second"
+        }, true);
+
+        print(translator.translate("firstKey", {
+            key: "test"
+        }));
     }
 }
 

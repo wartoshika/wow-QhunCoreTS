@@ -5,9 +5,9 @@ export interface ReadonlyRepository<TargetClass = object, Identifier = any> {
 
     /**
      * finds an entity by its identifier
-     * @param Identifier the identifier to search for
+     * @param identifier the identifier to search for
      */
-    find(Identifier: Identifier): TargetClass | null;
+    find(identifier: Identifier): TargetClass | null;
 
     /**
      * finds all entities in this repository

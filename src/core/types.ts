@@ -24,3 +24,23 @@ export interface ClassConstructor<T extends object = object> {
 
     new(...args: any[]): T
 }
+
+/**
+ * a generic type to remove index signatures when they were not nessesary
+ */
+export type KnownTypes<T> = {
+    [K in keyof T]: string extends K ? never : number extends K ? never : K
+} extends { [_ in keyof T]: infer U } ? U : never;
+
+/**
+ * a generic type to only expose properties that are added by user and does not inherit
+ * string or object builtin functions
+ */
+export type KnownProperties<T extends any> = Pick<T, KnownTypes<T>>;
+
+/**
+ * a type that extends an object and has a string key with any content
+ */
+export type AnyStringSignatureObject = {
+    [key: string]: any;
+};
