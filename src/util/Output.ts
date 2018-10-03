@@ -39,7 +39,7 @@ export class Output {
             output.push("}");
             return output.join("\n");
         } else {
-            return tostring(arg);
+            return `[${typeof arg}]: ${tostring(arg)}`;
         }
     };
 }

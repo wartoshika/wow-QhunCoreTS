@@ -51,7 +51,7 @@ export class Injector {
      * @param ctor the class to instantiate
      * @param defaultArguments the default arguments that will take place if one dependency could not resolved
      */
-    public instantiateClass<T extends TranspiledReflectableClass = TranspiledReflectableClass>(ctor: T, defaultArguments: any[] = []): T {
+    public instantiateClass<T extends Object>(ctor: TranspiledReflectableClass<T>, defaultArguments: any[] = []): T {
         
         const existing = this.findExistingInstance(ctor);
         if (existing) {

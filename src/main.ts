@@ -1,4 +1,4 @@
-import { QhunAddon, TocValue, fromEvent } from "./core";
+import { QhunAddon, TocValue, DebugChatWindow, Logger } from "./core";
 import { bootstrapAddon } from "./bootstrap";
 import { Locale, TranslationRegistry, Translator } from "./locale";
 
@@ -11,7 +11,11 @@ interface MyTranslation extends Locale {
 
 @QhunAddon({
     embed: true,
-    addonName: "QhunCoreTS"
+    addonName: "QhunCoreTS",
+    debugger: {
+        instance: DebugChatWindow,
+        data: "AddonDebug"
+    }
 })
 class Addon {
 
@@ -20,21 +24,11 @@ class Addon {
 
     constructor(
         private registry: TranslationRegistry<MyTranslation>,
-        private translator: Translator<MyTranslation>
+        private translator: Translator<MyTranslation>,
+        private logger: Logger
     ) {
 
-        this.registry.addLanguage("de", {
-            firstKey: "erster _key_",
-            secondKey: "asd"
-        });
-        this.registry.addLanguage("en", {
-            firstKey: "first _key_",
-            secondKey: "second"
-        }, true);
-
-        print(translator.translate("firstKey", {
-            key: "test"
-        }));
+        logger.info("HELLO INFO!");
     }
 }
 

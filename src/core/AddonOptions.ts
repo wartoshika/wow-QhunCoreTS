@@ -1,5 +1,8 @@
 import { QhunAddonOptions } from "./types";
+import { Singleton } from "./decorators/Singleton";
+import { Debugger } from "./debug/Debugger";
 
+@Singleton()
 export class AddonOptions implements QhunAddonOptions {
 
     private static instance: AddonOptions;
@@ -18,4 +21,5 @@ export class AddonOptions implements QhunAddonOptions {
 
     public embed: boolean;
     public addonName: string;
+    public debuggerInstance: Debugger;
 }

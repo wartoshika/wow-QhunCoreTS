@@ -1,2 +1,2 @@
-export * from "./ObservableFromEvent";
-export * from "./ObservableFromArray";
+export * from "./observableFromEvent";
+export * from "./observableFromArray";

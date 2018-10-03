@@ -1,3 +1,5 @@
+import { Debugger } from "./debug";
+
 /**
  * the addon options required to bootstrap the addon
  */
@@ -14,7 +16,23 @@ export interface QhunAddonOptions {
      * the name of your addon. this is important because this value will be used as prefix
      * for created frames, for aquiring data from your toc file ...
      */
-    addonName: string
+    addonName: string,
+
+    /**
+     * creates a debug environment for developing purpose. when empty, no debugging is enabled.
+     */
+    debugger?: {
+
+        /**
+         * the class that shoule be used to debug
+         */
+        instance: ClassConstructor<Debugger>;
+
+        /**
+         * additional data for the debugger
+         */
+        data: any
+    }
 };
 
 /**
@@ -43,4 +61,18 @@ export type KnownProperties<T extends any> = Pick<T, KnownTypes<T>>;
  */
 export type AnyStringSignatureObject = {
     [key: string]: any;
+};
+
+/**
+ * a strict signature of an object
+ */
+export type StrictSignatureObject<T> = {
+    [P in keyof T]: T[P]
+};
+
+/**
+ * a type that changes a tuple type to an object with the given type
+ */
+export type TupleTypeChangeObject<Tuple extends string | number, Type> = {
+    [P in Tuple]: Type
 };

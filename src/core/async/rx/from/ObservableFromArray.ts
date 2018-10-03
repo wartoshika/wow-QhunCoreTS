@@ -5,7 +5,7 @@ import { Subscription } from "../Subscription";
  * creates an observable from an array
  * @param arrayData the array data to observe
  */
-export function fromArray<T extends any>(arrayData: T[]): Observable<T> {
+export function observableFromArray<T extends any>(arrayData: T[]): Observable<T> {
     return new Observable<T>(subscriber => {
 
         arrayData.forEach(data => subscriber.next(data));

@@ -5,7 +5,7 @@ import { Subscription } from "../Subscription";
  * creates an observable from a wow event
  * @param event the wow event to listen on
  */
-export function fromEvent<T extends WowEvent>(event: T): Observable<object> {
+export function observableFromEvent<T extends WowEvent>(event: T): Observable<object> {
     return new Observable<object>(subscriber => {
 
         let eventFrame = CreateFrame("Frame");

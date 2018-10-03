@@ -1,6 +1,7 @@
 import { QhunAddonOptions } from "../types";
 import { AddonOptions } from "../AddonOptions";
 import { TranspiledReflectableClass, Injector } from "../di";
+import { bootstrapDebugger, Debugger } from "../debug";
 
 /**
  * a class level decorator to bootstrap your world of warcraft addon.
@@ -14,6 +15,11 @@ export function QhunAddon(
     const addonOptionsInstance = AddonOptions.getInstance();
     addonOptionsInstance.addonName = options.addonName;
     addonOptionsInstance.embed = options.embed;
+
+    // bootstrap the debugger
+    if (options.debugger && options.debugger.instance) {
+        addonOptionsInstance.debuggerInstance = bootstrapDebugger(options.debugger.instance as TranspiledReflectableClass<Debugger>, [options.debugger.data]);
+    }
 
     // go on with dependency injection
     const injector = Injector.getInstance();
