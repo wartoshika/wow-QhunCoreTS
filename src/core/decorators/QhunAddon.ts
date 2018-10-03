@@ -1,8 +1,6 @@
-import { QhunAddonOptions } from "../types";
+import { QhunAddonOptions, ClassConstructor } from "../types";
 import { AddonOptions } from "../AddonOptions";
 import { bootstrapDebugger } from "../debug/bootstrapDebugger";
-import { TranspiledReflectableClass } from "../di/reflection/TranspiledReflectableClass";
-import { Debugger } from "../debug/Debugger";
 import { Injector } from "../di/Injector";
 
 /**
@@ -20,12 +18,12 @@ export function QhunAddon(
 
     // bootstrap the debugger
     if (options.debugger && options.debugger.instance) {
-        addonOptionsInstance.debuggerInstance = bootstrapDebugger(options.debugger.instance as TranspiledReflectableClass<Debugger>, [options.debugger.data]);
+        addonOptionsInstance.debuggerInstance = bootstrapDebugger(options.debugger.instance, [options.debugger.data]);
     }
 
     // go on with dependency injection
     const injector = Injector.getInstance();
-    return <Target extends Function>(target: TranspiledReflectableClass<Target>) => {
+    return <Target extends Function>(target: ClassConstructor<Target>) => {
 
         // save the original constructor function
         const originalConstructor = target.__init;

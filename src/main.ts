@@ -33,7 +33,6 @@ class Addon {
         private logger: Logger
     ) {
 
-        logger.info("HELLO INFO!");
     }
 }
 

@@ -1,5 +1,5 @@
-import { TranspiledReflectableClass } from "./reflection/TranspiledReflectableClass";
-import { Reflector } from "./reflection/Reflector";
+import { Reflector } from "./Reflector";
+import { ClassConstructor } from "../types";
 
 /**
  * the injector resolves dependencies of classes or functions to allow recursivly inject all
@@ -51,7 +51,7 @@ export class Injector {
      * @param ctor the class to instantiate
      * @param defaultArguments the default arguments that will take place if one dependency could not resolved
      */
-    public instantiateClass<T extends Object>(ctor: TranspiledReflectableClass<T>, defaultArguments: any[] = []): T {
+    public instantiateClass<T extends Object>(ctor: ClassConstructor<T>, defaultArguments: any[] = []): T {
         
         const existing = this.findExistingInstance(ctor);
         if (existing) {
@@ -62,7 +62,7 @@ export class Injector {
         const dependencies = this.reflector.getMethodSignature(ctor, "constructor");
 
         // create dependencies
-        const resolvedDependencies = dependencies.map((dep: TranspiledReflectableClass, index) => {
+        const resolvedDependencies = dependencies.map((dep: ClassConstructor, index) => {
 
             // if the dependency has an object signature, try to resolve this dependency
             if (this.reflector.isReflectableClass(dep)) {
@@ -93,7 +93,7 @@ export class Injector {
      * resolves all declared dependencies for the given class
      * @param ctor the target class
      */
-    public resolve(ctor: TranspiledReflectableClass): Object[] {
+    public resolve(ctor: ClassConstructor): Object[] {
         
         return this.reflector
             .getMethodSignature(ctor, "constructor")
@@ -110,7 +110,7 @@ export class Injector {
      * tries to find an existing instance of the given class
      * @param ctor the constructor to search for
      */
-    private findExistingInstance<T = any>(ctor: TranspiledReflectableClass<T>): T | null {
+    private findExistingInstance<T extends object>(ctor: ClassConstructor<T>): T | null {
 
         // try to find an existing instance
         const candiates = this.instanceStorage.filter(dep => dep.ctor === ctor);

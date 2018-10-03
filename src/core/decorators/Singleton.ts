@@ -1,6 +1,6 @@
-import { TranspiledReflectableClass } from "../di/reflection/TranspiledReflectableClass";
+import { ClassConstructor } from "../types";
 
-interface SingletonClass<T> extends TranspiledReflectableClass<T> {
+interface SingletonClass<T extends ClassConstructor> extends ClassConstructor<T> {
 
     /**
      * a property to check if the singleton has allready been created
@@ -13,7 +13,7 @@ interface SingletonClass<T> extends TranspiledReflectableClass<T> {
  * at runtime
  */
 export function Singleton(): any {
-    return <Target extends Function>(target: SingletonClass<Target>) => {
+    return <Target extends ClassConstructor>(target: SingletonClass<Target>) => {
 
         // check if the singleton runtime check property has allready been placed
         // on this target

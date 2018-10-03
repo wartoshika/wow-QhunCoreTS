@@ -40,7 +40,37 @@ export interface QhunAddonOptions {
  */
 export interface ClassConstructor<T extends object = object> {
 
-    new(...args: any[]): T
+    /**
+     * every class method with its dependencies in correct order
+     */
+    __staticReflection?: {
+        [methodName: string]: Function[]
+    };
+
+    /**
+     * the reflected class name
+     */
+    __name?: string;
+
+    /**
+     * class constructor function
+     */
+    new(...args: any[]): T & {
+
+        /**
+         * every class method with its dependencies in correct order
+         */
+        __staticReflection?: {
+            [methodName: string]: Function[]
+        };
+    };
+
+    /**
+     * the transpiled constructor function
+     * @param thisArg this arg
+     * @param constructorArguments all other constructor params
+     */
+    __init?(thisArg: object, ...constructorArguments: any[]): T;
 }
 
 /**

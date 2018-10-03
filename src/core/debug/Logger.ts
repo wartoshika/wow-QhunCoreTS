@@ -1,6 +1,6 @@
 import { Singleton } from "../decorators/Singleton";
 import { Debugger } from "./Debugger";
-import { AddonOptions } from "../AddonOptions";
+import { AddonOption } from "../decorators/AddonOption";
 
 /**
  * the main logger class
@@ -8,7 +8,8 @@ import { AddonOptions } from "../AddonOptions";
 @Singleton()
 export class Logger implements Debugger {
 
-    private debugger: Debugger = AddonOptions.getInstance().debuggerInstance;
+    @AddonOption("debuggerInstance")
+    private debugger: Debugger;
 
     public debug(...args: any[]): void {
         this.debugger.debug(...args);

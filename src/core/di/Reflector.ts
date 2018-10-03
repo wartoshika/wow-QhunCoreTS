@@ -1,4 +1,4 @@
-import { TranspiledReflectableClass } from "./TranspiledReflectableClass";
+import { ClassConstructor } from "../types";
 
 /**
  * the reflector can resolve static transpiled method signatures.
@@ -10,7 +10,7 @@ export class Reflector {
      * @param ctor the class object (no instance)
      * @param methodName the method name to get the signature of
      */
-    public getMethodSignature<T extends TranspiledReflectableClass>(ctor: T, methodName: (keyof T) | "constructor" = "constructor"): any[] {
+    public getMethodSignature<T extends ClassConstructor>(ctor: T, methodName: (keyof T) | "constructor" = "constructor"): any[] {
 
         return ctor.__staticReflection[methodName as string];
     }
@@ -19,7 +19,7 @@ export class Reflector {
      * check if the given class is a reflectable class
      * @param ctor the class to check
      */
-    public isReflectableClass(ctor: TranspiledReflectableClass): ctor is TranspiledReflectableClass {
+    public isReflectableClass(ctor: ClassConstructor): ctor is ClassConstructor {
 
         return (typeof ctor as string) === "table" && ctor.__staticReflection !== undefined;
     }
