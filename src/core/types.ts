@@ -1,4 +1,4 @@
-import { Debugger } from "./debug";
+import { Debugger } from "./debug/Debugger";
 
 /**
  * the addon options required to bootstrap the addon

@@ -1,5 +1,5 @@
 import { Debugger } from "./Debugger";
-import { TranspiledReflectableClass } from "../di";
+import { TranspiledReflectableClass } from "../di/reflection/TranspiledReflectableClass";
 
 /**
  * bootstraps the debugger

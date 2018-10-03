@@ -1,4 +1,4 @@
-import { TranspiledReflectableClass } from "../di";
+import { TranspiledReflectableClass } from "../di/reflection/TranspiledReflectableClass";
 
 interface SingletonClass<T> extends TranspiledReflectableClass<T> {
 

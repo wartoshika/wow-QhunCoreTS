@@ -1,4 +1,4 @@
-import { Locale, LocaleDictionary, LocaleDictionaryContent } from "./Locale";
+import { Locale, LocaleDictionaryContent } from "./Locale";
 
 /**
  * The registry class to add different locales to your addon

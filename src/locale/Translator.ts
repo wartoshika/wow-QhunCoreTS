@@ -1,6 +1,6 @@
 import { TranslationRegistry } from "./TranslationRegistry";
 import { Locale } from "./Locale";
-import { KnownProperties, AnyStringSignatureObject } from "../core";
+import { KnownProperties, AnyStringSignatureObject } from "../core/types";
 
 /**
  * a class that is capable of translating given identifier

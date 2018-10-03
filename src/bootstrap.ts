@@ -1,4 +1,4 @@
-import { ClassConstructor } from "./core";
+import { ClassConstructor } from "./core/types";
 
 /**
  * bootstraps the addon

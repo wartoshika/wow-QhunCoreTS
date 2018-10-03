@@ -1,7 +1,9 @@
 import { QhunAddonOptions } from "../types";
 import { AddonOptions } from "../AddonOptions";
-import { TranspiledReflectableClass, Injector } from "../di";
-import { bootstrapDebugger, Debugger } from "../debug";
+import { bootstrapDebugger } from "../debug/bootstrapDebugger";
+import { TranspiledReflectableClass } from "../di/reflection/TranspiledReflectableClass";
+import { Debugger } from "../debug/Debugger";
+import { Injector } from "../di/Injector";
 
 /**
  * a class level decorator to bootstrap your world of warcraft addon.

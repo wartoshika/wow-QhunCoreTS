@@ -1,6 +1,11 @@
-import { QhunAddon, TocValue, DebugChatWindow, Logger } from "./core";
+import { Locale } from "./locale/Locale";
+import { QhunAddon } from "./core/decorators/QhunAddon";
+import { DebugChatWindow } from "./core/debug/DebugChatWindow";
+import { TocValue } from "./core/decorators/TocValue";
+import { TranslationRegistry } from "./locale/TranslationRegistry";
+import { Translator } from "./locale/Translator";
+import { Logger } from "./core/debug/Logger";
 import { bootstrapAddon } from "./bootstrap";
-import { Locale, TranslationRegistry, Translator } from "./locale";
 
 interface MyTranslation extends Locale {
     firstKey: {

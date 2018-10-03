@@ -3,7 +3,7 @@ import { UIFrame } from "./UIFrame";
 import { UISlider } from "./UISlider";
 import { UIEditBox } from "./UIEditBox";
 import { UIButton } from "./UIButton";
-import { AddonOption } from "../core";
+import { AddonOption } from "../core/decorators/AddonOption";
 
 /**
  * The frame manager handles the construction and destruction of visible frames.

@@ -2,7 +2,7 @@ import { UnitClass } from "./UnitClass";
 import { UnitRace } from "./UnitRace";
 import { UnitGender } from "./UnitGender";
 import { UnitName } from "./UnitName";
-import { EntityHasPrimaryKey } from "../../core";
+import { EntityHasPrimaryKey } from "../../core/database/repository/EntityHasPrimaryKey";
 
 /**
  * a base entity that has nessesary information about an entity wrapped in an object

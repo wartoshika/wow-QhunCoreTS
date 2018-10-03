@@ -1,4 +1,5 @@
-import { TranspiledReflectableClass, Injector } from "../di";
+import { TranspiledReflectableClass } from "../di/reflection/TranspiledReflectableClass";
+import { Injector } from "../di/Injector";
 
 /**
  * a class level decorator to declare this class as injectable via dependency injection

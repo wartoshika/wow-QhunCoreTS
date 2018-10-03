@@ -1,6 +1,6 @@
-import { ReadonlyRepository } from "../../../core";
 import { Unit } from "../Unit";
 import { UnitName } from "../UnitName";
+import { ReadonlyRepository } from "../../../core/database/repository/ReadonlyRepository";
 
 /**
  * a readonly repository to find entities by its unit id
