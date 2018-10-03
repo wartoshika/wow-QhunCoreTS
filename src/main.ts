@@ -6,6 +6,8 @@ import { TranslationRegistry } from "./locale/TranslationRegistry";
 import { Translator } from "./locale/Translator";
 import { Logger } from "./core/debug/Logger";
 import { bootstrapAddon } from "./bootstrap";
+import { observableFromEvent } from "./core/async/rx/from/observableFromEvent";
+import { MultiReturn } from "./util/MultiReturn";
 
 interface MyTranslation extends Locale {
     firstKey: {
@@ -33,6 +35,17 @@ class Addon {
         private logger: Logger
     ) {
 
+        observableFromEvent("PLAYER_EQUIPMENT_CHANGED")
+            .map(data => {
+                const a = MultiReturn.extractObjects(data, 2, ["inventoryId", "flag"])
+                return a[0];
+            })
+            .filter(data => {
+                return !data.flag;
+            }).subscribe(data => {
+
+                print(`equipped ${data.inventoryId}`);
+            });
     }
 }
 

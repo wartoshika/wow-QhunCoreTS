@@ -30,4 +30,66 @@ export class Observable<T = any> {
         this.internalSubscribe(subscriber);
         return subscriber;
     }
+
+    /**
+     * filters the data stream for objects that are allowed to pass.
+     * @param predicate the filter function
+     */
+    public filter(predicate: (data: T) => boolean): Observable<T> {
+
+        const inObservable = this;
+        const outObservable = new Observable<T>(outObserver => {
+
+            const inObserver: Observer<T> = {
+                next: data => {
+                    let passed: boolean = false;
+                    try {
+                        passed = predicate(data);
+                    } catch (e) {
+                        outObserver.error(e);
+                        return;
+                    }
+                    if (passed) {
+                        outObserver.next(data);
+                    }
+                },
+                error: err => outObserver.error(err),
+                complete: () => outObserver.complete()
+            };
+            return inObservable.subscribe(inObserver);
+        });
+        return outObservable;
+    }
+
+    /**
+     * maps or transforms the data stream into a new output
+     * @param transform the transform function
+     */
+    public map<D>(transform: (data: T) => D): Observable<D> {
+
+        const inObservable = this;
+        const outObservable = new Observable<D>(outObserver => {
+            const inObserver: Observer<T> = {
+                next: (x) => {
+                    let transformValue: D;
+                    try {
+                        transformValue = transform(x);
+                    } catch (e) {
+                        outObserver.error(e);
+                        return;
+                    }
+                    outObserver.next(transformValue);
+                },
+                error: (e) => {
+                    outObserver.error(e);
+                },
+                complete: () => {
+                    outObserver.complete();
+                }
+            };
+            return inObservable.subscribe(inObserver);
+        });
+        return outObservable;
+
+    }
 }

@@ -5,6 +5,8 @@ import { Subscription } from "../Subscription";
  * creates an observable from a wow event
  * @param event the wow event to listen on
  */
+export function observableFromEvent<T extends WowEvent>(event: "PLAYER_TARGET_CHANGED"): Observable<null>
+export function observableFromEvent<T extends WowEvent>(event: "PLAYER_EQUIPMENT_CHANGED"): Observable<[WowInventoryId, boolean]>
 export function observableFromEvent<T extends WowEvent>(event: T): Observable<object> {
     return new Observable<object>(subscriber => {
 
