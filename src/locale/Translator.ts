@@ -1,11 +1,13 @@
 import { TranslationRegistry } from "./TranslationRegistry";
 import { Locale } from "./Locale";
 import { KnownProperties, AnyStringSignatureObject } from "../core/types";
+import { Injectable } from "../core/decorators/Injectable";
 
 /**
  * a class that is capable of translating given identifier
  * to a locale string with optional lexal parsing
  */
+@Injectable()
 export class Translator<T extends Locale> {
 
     /**

@@ -1,8 +1,10 @@
 import { Locale, LocaleDictionaryContent } from "./Locale";
+import { Injectable } from "../core/decorators/Injectable";
 
 /**
  * The registry class to add different locales to your addon
  */
+@Injectable()
 export class TranslationRegistry<T extends Locale> {
 
     /**
@@ -26,6 +28,11 @@ export class TranslationRegistry<T extends Locale> {
     public addLanguage(language: string, data: LocaleDictionaryContent<T>, isFallback: boolean = false): void {
 
         this.storage[language] = data;
+
+        // set fallback language if it was set
+        if (isFallback) {
+            this.fallback = language;
+        }
     }
 
     /**

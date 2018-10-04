@@ -1,11 +1,11 @@
-import { Singleton } from "../decorators/Singleton";
 import { Debugger } from "./Debugger";
 import { AddonOption } from "../decorators/AddonOption";
+import { Injectable } from "../decorators/Injectable";
 
 /**
  * the main logger class
  */
-@Singleton()
+@Injectable()
 export class Logger implements Debugger {
 
     @AddonOption("debuggerInstance")

@@ -9,7 +9,7 @@ import { Injector } from "../di/Injector";
  */
 export function QhunAddon(
     options: QhunAddonOptions
-): any {
+): ClassDecorator {
 
     // save addon options
     const addonOptionsInstance = AddonOptions.getInstance();
@@ -23,7 +23,7 @@ export function QhunAddon(
 
     // go on with dependency injection
     const injector = Injector.getInstance();
-    return <Target extends Function>(target: ClassConstructor<Target>) => {
+    return <ClassDecorator>(<Target extends Function>(target: ClassConstructor<Target>) => {
 
         // save the original constructor function
         const originalConstructor = target.__init;
@@ -33,5 +33,5 @@ export function QhunAddon(
 
             originalConstructor(thisArg, ...injector.resolve(target));
         };
-    };
+    });
 }

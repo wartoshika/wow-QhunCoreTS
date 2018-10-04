@@ -1,4 +1,5 @@
 import { ClassConstructor } from "../types";
+import { InjectableClass } from "./InjectableClass";
 
 /**
  * the reflector can resolve static transpiled method signatures.
@@ -19,9 +20,17 @@ export class Reflector {
      * check if the given class is a reflectable class
      * @param ctor the class to check
      */
-    public isReflectableClass(ctor: ClassConstructor): ctor is ClassConstructor {
+    public isReflectableClass(ctor: InjectableClass): ctor is InjectableClass {
 
-        return (typeof ctor as string) === "table" && ctor.__staticReflection !== undefined;
+        return (typeof ctor as string) === "table" && ctor.__staticReflection !== undefined && ctor.__injectable === true;
     }
 
+    /**
+     * check if the given object is a class constructor but is not allowed to be injected
+     * @param ctor the class to check
+     */
+    public isClassButNotInjectable(ctor: InjectableClass): ctor is ClassConstructor {
+
+        return (typeof ctor as string) === "table" && ctor.__staticReflection !== undefined && !ctor.__injectable;
+    }
 }

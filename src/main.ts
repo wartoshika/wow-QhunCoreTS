@@ -8,6 +8,7 @@ import { Logger } from "./core/debug/Logger";
 import { bootstrapAddon } from "./bootstrap";
 import { observableFromEvent } from "./core/async/rx/from/observableFromEvent";
 import { MultiReturn } from "./util/MultiReturn";
+import { Reflector } from "./core/di/Reflector";
 
 interface MyTranslation extends Locale {
     firstKey: {

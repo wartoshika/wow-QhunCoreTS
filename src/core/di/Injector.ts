@@ -1,10 +1,12 @@
 import { Reflector } from "./Reflector";
 import { ClassConstructor } from "../types";
+import { Injectable } from "../decorators/Injectable";
 
 /**
  * the injector resolves dependencies of classes or functions to allow recursivly inject all
  * nessesary dependencies into that function.
  */
+@Injectable()
 export class Injector {
 
     private static __instance: Injector;
@@ -17,7 +19,6 @@ export class Injector {
         if (!Injector.__instance) {
             new Injector();
         }
-
         return Injector.__instance;
     }
 
@@ -52,7 +53,7 @@ export class Injector {
      * @param defaultArguments the default arguments that will take place if one dependency could not resolved
      */
     public instantiateClass<T extends Object>(ctor: ClassConstructor<T>, defaultArguments: any[] = []): T {
-        
+
         const existing = this.findExistingInstance(ctor);
         if (existing) {
             return existing as T;
@@ -94,13 +95,17 @@ export class Injector {
      * @param ctor the target class
      */
     public resolve(ctor: ClassConstructor): Object[] {
-        
+
         return this.reflector
             .getMethodSignature(ctor, "constructor")
             .map(dependency => {
                 if (this.reflector.isReflectableClass(dependency)) {
-                    
+
                     return this.instantiateClass(dependency);
+                } else if (this.reflector.isClassButNotInjectable(dependency)) {
+
+                    // throw as it is an error
+                    throw `InjectionError: ${ctor.__name} needs a dependency ${dependency.__name} that cannot be injected. Do you forget to add the @Injectable() decorator?`;
                 }
                 return dependency;
             });
