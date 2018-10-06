@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@wartoshika/lua-declarations": "0.0.1",
-    "@wartoshika/qhun-transpiler": "^0.3.0",
+    "@wartoshika/qhun-transpiler": "^0.4.0",
     "@wartoshika/wow-declarations": "0.0.3",
     "typescript": "^3.1.1"
   }
