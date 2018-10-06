@@ -2,6 +2,7 @@ import { Unsubscribable } from "./Unsubscribable";
 import { Subscription } from "./Subscription";
 import { Observer } from "./Observer";
 import { Subscriber } from "./Subscriber";
+import { Promise } from "../Promise";
 
 /**
  * the observable is an event stream over a certain amount of time. An observed data stream
@@ -28,7 +29,36 @@ export class Observable<T = any> {
 
         const subscriber = new Subscriber(observer, error, complete);
         this.internalSubscribe(subscriber);
+        print(subscriber);
         return subscriber;
+    }
+
+    /**
+     * casts this observable class to a promise that automaticly unsubscribes the observable when the promise is done
+     */
+    public toPromise(): Promise<T> {
+        return new Promise((resolve, reject) => {
+
+            let subscription: Subscription;
+
+            // subscribe to the internal observable
+            subscription = this.subscribe(val => {
+
+                // fulfill the promise
+                resolve(val);
+
+                // unsubscribe from the observable subscription
+                subscription.unsubscribe();
+            }, reason => {
+
+                // reject the promise
+                reject(reason);
+
+                // unsubscribe from the observable subscription
+                subscription.unsubscribe();
+            });
+
+        });
     }
 
     /**

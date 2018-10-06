@@ -1,5 +1,7 @@
 import { AddonOption } from "../decorators/AddonOption";
 import { Logger } from "../debug/Logger";
+import { Inject } from "../decorators/Inject";
+import { Timer } from "./Timer";
 
 interface PromiseLike<T> {
 
@@ -27,6 +29,9 @@ export class Promise<T> implements PromiseLike<T> {
 
     @AddonOption("debuggerInstance")
     private logger: Logger;
+
+    @Inject(Timer)
+    private timer: Timer;
 
     /**
      * the final promise value
@@ -95,10 +100,12 @@ export class Promise<T> implements PromiseLike<T> {
      */
     private doneInternal(onFulfilled: (value: T) => void, onRejected?: (reason: any) => void): void {
 
-        this.handlePromise({
-            onFulfilled: onFulfilled,
-            onRejected: onRejected
-        });
+        this.timer.timeout(() => {
+            this.handlePromise({
+                onFulfilled: onFulfilled,
+                onRejected: onRejected
+            });
+        }, 0);
     }
 
     /**

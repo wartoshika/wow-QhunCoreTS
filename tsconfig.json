@@ -8,7 +8,7 @@
         "emitDecoratorMetadata": true,
         "outDir": "dist",
         "moduleResolution": "node",
-        "target": "es5",
+        "target": "esnext",
         "sourceMap": true,
         "typeRoots": [
             "node_modules/@types",

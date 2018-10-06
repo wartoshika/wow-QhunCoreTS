@@ -10,6 +10,7 @@ import { observableFromEvent } from "./core/async/rx/from/observableFromEvent";
 import { MultiReturn } from "./util/MultiReturn";
 import { Reflector } from "./core/di/Reflector";
 import { Promise } from "./core/async/Promise";
+import { Timer } from "./core/async/Timer";
 
 interface MyTranslation extends Locale {
     firstKey: {
@@ -32,12 +33,13 @@ class Addon {
     private name: string;
 
     constructor(
-        private registry: TranslationRegistry<MyTranslation>,
-        private translator: Translator<MyTranslation>,
-        private logger: Logger
+        private timer: Timer
     ) {
 
+        observableFromEvent("PLAYER_TARGET_CHANGED").toPromise().done(data => {
 
+            print("HERE", data);
+        });
     }
 }
 
