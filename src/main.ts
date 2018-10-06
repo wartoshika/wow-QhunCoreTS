@@ -2,15 +2,8 @@ import { Locale } from "./locale/Locale";
 import { QhunAddon } from "./core/decorators/QhunAddon";
 import { DebugChatWindow } from "./core/debug/DebugChatWindow";
 import { TocValue } from "./core/decorators/TocValue";
-import { TranslationRegistry } from "./locale/TranslationRegistry";
-import { Translator } from "./locale/Translator";
-import { Logger } from "./core/debug/Logger";
 import { bootstrapAddon } from "./bootstrap";
-import { observableFromEvent } from "./core/async/rx/from/observableFromEvent";
-import { MultiReturn } from "./util/MultiReturn";
-import { Reflector } from "./core/di/Reflector";
-import { Promise } from "./core/async/Promise";
-import { Timer } from "./core/async/Timer";
+import { Window } from "./ui/objects/Window";
 
 interface MyTranslation extends Locale {
     firstKey: {
@@ -32,14 +25,23 @@ class Addon {
     @TocValue("Title")
     private name: string;
 
-    constructor(
-        private timer: Timer
-    ) {
+    constructor() {
 
-        observableFromEvent("PLAYER_TARGET_CHANGED").toPromise().done(data => {
-
-            print("HERE", data);
+        const window = new Window({
+            width: 400,
+            height: 300, 
+            title: {
+                actionButtons: [{
+                    text: "Menu",
+                    callback: (button) => { print("HEY MENU", button); }
+                }, {
+                    text: "Other Menu",
+                    callback: (button) => { print("OTHER MENU", button) }
+                }],
+                titleText: "Hello Title"
+            }
         });
+        window.append(UIParent);
     }
 }
 
