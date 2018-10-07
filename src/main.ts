@@ -47,6 +47,11 @@ class Addon {
             }
         });
         window.append(UIParent);
+
+        timer.timeout(() => {
+
+            window.getNativeFrame().Hide();
+        }, 3000);
     }
 }
 

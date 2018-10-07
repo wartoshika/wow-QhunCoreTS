@@ -24,15 +24,15 @@ export class Timer {
         }
     } = {};
 
+    /**
+     * a flag if the timer is running
+     */
+    private isRunning: boolean = false;
+
     constructor() {
 
         // create the timer frame
         this.eventFrame = CreateFrame("Frame");
-
-        // enable timer event
-        this.eventFrame.SetScript("OnUpdate", (_, timePassed) => {
-            this.onUpdate(timePassed);
-        });
     }
 
     /**
@@ -52,6 +52,8 @@ export class Timer {
             callback: callback,
             counter: 0
         };
+
+        this.checkStartStopTimer();
 
         return uuid;
     }
@@ -80,6 +82,8 @@ export class Timer {
             },
             counter: 0
         };
+
+        this.checkStartStopTimer();
 
         return uuid;
     }
@@ -127,6 +131,8 @@ export class Timer {
 
         }, totalTimeInMilliseconds);
 
+        this.checkStartStopTimer();
+
         return uuid;
     }
 
@@ -162,5 +168,46 @@ export class Timer {
     private remove(identifier: string): void {
 
         delete this.listeners[identifier];
+        this.checkStartStopTimer();
+    }
+
+    /**
+     * observes the listener stack and starts/stops the timer when
+     * the stack is full/empty
+     */
+    private checkStartStopTimer(): void {
+
+        const stackSize = Object.keys(this.listeners).length;
+        if (stackSize === 0) {
+            this.stopTimer();
+        } else if (stackSize > 0 && !this.isRunning) {
+            this.startTimer();
+        }
+    }
+
+    /**
+     * starts the timer
+     */
+    private startTimer(): void {
+
+        // enable timer event
+        this.eventFrame.SetScript("OnUpdate", (_, timePassed) => {
+            this.onUpdate(timePassed);
+        });
+
+        // set run flag
+        this.isRunning = true;
+    }
+
+    /**
+     * stops the timer
+     */
+    private stopTimer(): void {
+
+        // remove timer event
+        this.eventFrame.SetScript("OnUpdate", null);
+
+        // set run flag
+        this.isRunning = false;
     }
 }
