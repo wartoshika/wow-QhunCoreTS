@@ -4,6 +4,12 @@ import { WindowTheme } from "./themes/WindowTheme";
 import { QhunDarkTheme } from "./themes/QhunDarkTheme";
 import { WindowUtils } from "./WindowUtils";
 import { HasNativeFrame } from "./HasNativeFrame";
+import { Omit } from "../../core/types";
+import { FrameLevel } from "../FrameLevel";
+import { FrameManager } from "../FrameManager";
+import { Inject } from "../../core/decorators/Inject";
+import { Animation } from "../decorator/Animation";
+import { EaseInOut } from "../animation/transition/EaseInOut";
 
 /**
  * wraps up all possible options of a created window element
@@ -26,7 +32,7 @@ export interface WindowOptions {
      * the title of the window
      * @default: "New Window - QhunCoreTS"
      */
-    title?: string | TitleBar | TitleBarOptions;
+    title?: string | TitleBar | Omit<TitleBarOptions, "movingWindow">;
 
     /**
      * the footer text of the window
@@ -45,12 +51,32 @@ export interface WindowOptions {
      * @default: true
      */
     interactable?: boolean;
+
+    /**
+     * a flag that controls if the window is movable.
+     * **interactable must be true** in order to use movable!
+     * @default: true
+     */
+    movable?: boolean;
 }
 
 /**
- * the lowest abstraction layer for any visible or non visible ui elements
+ * a window like ui element to place other ui element on
  */
+@Animation({
+    showAnimation: {
+        transition: EaseInOut,
+        time: 200
+    },
+    hideAnimation: {
+        transition: EaseInOut,
+        time: 200
+    }
+})
 export class Window implements HasNativeFrame {
+
+    @Inject(FrameManager)
+    private frameManager: FrameManager;
 
     /**
      * the current parent frame
@@ -75,8 +101,9 @@ export class Window implements HasNativeFrame {
     ) {
 
         // build the frame
-        this.mainFrame = CreateFrame("Frame");
-        this.mainFrame.SetFrameStrata("LOW");
+        this.mainFrame = this.frameManager.create();
+        this.mainFrame.SetFrameStrata("HIGH");
+        this.mainFrame.SetFrameLevel(FrameLevel.WINDOW);
 
         // "bootstrap" this created window
         this.bootstrapWindow(TableUtil.fillTableDefault(options, {
@@ -85,7 +112,8 @@ export class Window implements HasNativeFrame {
             title: "New Window - QhunCoreTS",
             footer: null,
             theme: QhunDarkTheme,
-            interactable: true
+            interactable: true,
+            movable: true
         }));
     }
 
@@ -146,15 +174,22 @@ export class Window implements HasNativeFrame {
 
             // create a new title bar instance
             options.title.width = options.title.width || options.width;
+            options.title.movingWindow = options.title.movingWindow || this;
             titleBar = new TitleBar(options.title);
         } else {
 
             // create a normal text based title
             titleBar = new TitleBar({
-                titleText: options.title,
+                titleText: options.title as string,
                 theme: options.theme,
-                width: options.width
+                width: options.width,
+                movingWindow: this
             });
+        }
+
+        // set movable
+        if (options.interactable && options.movable) {
+            this.mainFrame.SetMovable(true);
         }
 
         // append the title bar frame to the window frame
@@ -167,14 +202,13 @@ export class Window implements HasNativeFrame {
 
         // apply options to the instance
         this.options = options as any;
-
     }
 
     /**
      * check if the given title is an instance of TitleBar
      * @param title the title var to check
      */
-    private isOptionTitleAnInstance(title: string | TitleBar | TitleBarOptions): title is TitleBar {
+    private isOptionTitleAnInstance(title: string | TitleBar | Omit<TitleBarOptions, "movingWindow">): title is TitleBar {
 
         return ((typeof title) as string) === "table" && title instanceof TitleBar;
     }
@@ -183,7 +217,7 @@ export class Window implements HasNativeFrame {
      * check if the given title is an option object
      * @param title the title var to check
      */
-    private isOptionTitleAnObject(title: string | TitleBar | TitleBarOptions): title is TitleBarOptions {
+    private isOptionTitleAnObject(title: string | TitleBar | Omit<TitleBarOptions, "movingWindow">): title is TitleBarOptions {
 
         return ((typeof title) as string) === "table" && typeof (title as TitleBarOptions).titleText === "string";
     }

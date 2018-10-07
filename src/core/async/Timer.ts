@@ -18,8 +18,9 @@ export class Timer {
     private listeners: {
         [uuid: string]: {
             time: number,
-            callback: () => void,
-            counter: number
+            callback: (timePased?: number, ...args: any[]) => void,
+            counter: number,
+            additionalData?: any
         }
     } = {};
 
@@ -84,20 +85,69 @@ export class Timer {
     }
 
     /**
+     * calls the given callback every time the interval frame updates. after the total amount of time, the callback will not be called anymore
+     * @param callback the callback function
+     * @param resolution the minimal waiting time between callback calls (must be greater than 0)
+     * @param totalTimeInMilliseconds the total run time
+     * @return an identifier to cancel the function
+     */
+    public every(callback: (timePassedInMilliseconds: number) => void, resolution: number, totalTimeInMilliseconds: number): string {
+
+        // generate an identifier
+        const uuid = RandomUtil.uuid();
+
+        // register the callback
+        this.listeners[uuid] = {
+            time: resolution,
+            callback: (_, timePased: number) => {
+
+                if (this.listeners[uuid]) {
+
+                    // add current time passed to data stack
+                    this.listeners[uuid].additionalData += timePased;
+
+                    // call the callback
+                    if (this.listeners[uuid].additionalData < totalTimeInMilliseconds) {
+                        callback(this.listeners[uuid].additionalData);
+                    }
+                }
+            },
+            counter: 0,
+            additionalData: 0
+        };
+
+        // remove this function after the total time
+        this.timeout(() => {
+
+            // remove the every listener
+            this.remove.bind(this)(uuid);
+
+            // last callback with will total time
+            callback(totalTimeInMilliseconds);
+
+        }, totalTimeInMilliseconds);
+
+        return uuid;
+    }
+
+    /**
      * updates the timer based on the event frame update
      * @param timePassed the time passed in milliseconds
      */
     private onUpdate(timePassed: number): void {
 
+        // convert to ms
+        timePassed *= 1000;
+
         // check for updates
         Object.values(this.listeners).forEach(listener => {
 
             // update listener counter
-            listener.counter += timePassed * 1000;
+            listener.counter += timePassed;
 
             // check if the timer counter is reached
             if (listener.counter >= listener.time) {
-                listener.callback();
+                listener.callback(listener.counter);
 
                 // reset counter
                 listener.counter = 0;

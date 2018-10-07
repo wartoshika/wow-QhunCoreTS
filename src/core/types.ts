@@ -106,3 +106,8 @@ export type StrictSignatureObject<T> = {
 export type TupleTypeChangeObject<Tuple extends string | number, Type> = {
     [P in Tuple]: Type
 };
+
+/**
+ * omits the given properties K of T
+ */
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

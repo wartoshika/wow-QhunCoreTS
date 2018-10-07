@@ -15,13 +15,23 @@ interface SingletonClass<T extends ClassConstructor> extends ClassConstructor<T>
 export function Singleton(): ClassDecorator {
     return <ClassDecorator>(<Target extends ClassConstructor>(target: SingletonClass<Target>) => {
 
-        // check if the singleton runtime check property has allready been placed
-        // on this target
-        if (target.__singletonHasBeenCreated) {
-            throw `The singleton class cannot be instantiated twice! Class name was ${target.__name}.`;
-        }
+        // save the original constructor function
+        const originalConstructor = target.__init;
 
-        // do not override the current constructor
-        return target.__init;
+        // override constructor to check if the class has been instantiated twice
+        return (thisArg: object, ...otherArguments: any[]) => {
+
+            // check if the singleton runtime check property has allready been placed
+            // on this target
+            if (target.__singletonHasBeenCreated) {
+                throw `The singleton class cannot be instantiated twice! Class name was ${target.__name}.`;
+            }
+
+            // set singleton property
+            target.__singletonHasBeenCreated = true;
+
+            // construct target
+            originalConstructor(thisArg, ...otherArguments);
+        };
     });
 }

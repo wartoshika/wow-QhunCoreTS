@@ -4,6 +4,12 @@ import { WindowTheme } from "./themes/WindowTheme";
 import { QhunDarkTheme } from "./themes/QhunDarkTheme";
 import { WindowUtils } from "./WindowUtils";
 import { ActionButton, ActionButtonOptions } from "./ActionButton";
+import { HasText } from "../types";
+import { FrameLevel } from "../FrameLevel";
+import { Inject } from "../../core/decorators/Inject";
+import { FrameManager } from "../FrameManager";
+import { Animation } from "../decorator/Animation";
+import { EaseInOut } from "../animation/transition/EaseInOut";
 
 /**
  * wraps up all possible options of a title bar element
@@ -44,12 +50,26 @@ export interface TitleBarOptions {
      * the width of the title bar frame in pixel
      */
     width?: number;
+
+    /**
+     * the window object that shoule be moved
+     */
+    movingWindow: HasNativeFrame;
 }
 
 /**
  * A title object wich can be placed on a window
  */
+@Animation({
+    showAnimation: {
+        transition: EaseInOut,
+        time: 200
+    }
+})
 export class TitleBar implements HasNativeFrame {
+
+    @Inject(FrameManager)
+    private frameManager: FrameManager;
 
     /**
      * the main title bar frame
@@ -69,7 +89,7 @@ export class TitleBar implements HasNativeFrame {
     /**
      * the title text font string instance
      */
-    private titleText: WowFontString;
+    private titleText: AdvancedWowFrame<WowFrame, HasText>;
 
     /**
      * all title bar options
@@ -84,17 +104,20 @@ export class TitleBar implements HasNativeFrame {
     ) {
 
         // create a new frame
-        this.mainFrame = CreateFrame("Frame");
-        this.mainFrame.SetFrameStrata("MEDIUM");
+        this.mainFrame = this.frameManager.create();
+        this.mainFrame.SetFrameStrata("HIGH");
+        this.mainFrame.SetFrameLevel(FrameLevel.TITLE_BAR);
+        this.mainFrame.SetMovable(true);
 
         // "bootstrap" the title bar
-        this.bootstrapWindow(TableUtil.fillTableDefault(options, {
+        this.bootstrapTitleBar(TableUtil.fillTableDefault(options, {
             hasCloseButton: true,
             actionButtons: [],
             titleText: "New Window - QhunCoreTS",
             theme: QhunDarkTheme,
             height: 25,
-            width: 250
+            width: 250,
+            movingWindow: options.movingWindow
         }));
     }
 
@@ -114,7 +137,7 @@ export class TitleBar implements HasNativeFrame {
      * bootstrap the title bar by applying all options
      * @param options the options to use as base
      */
-    private bootstrapWindow(options: TitleBarOptions): void {
+    private bootstrapTitleBar(options: TitleBarOptions): void {
 
         // set size related options
         this.mainFrame.SetHeight(options.height);
@@ -175,7 +198,10 @@ export class TitleBar implements HasNativeFrame {
 
         this.closeButton = new ActionButton({
             text: "X",
-            callback: () => { },
+            callback: () => {
+
+                // resolve the close promise
+            },
             theme: options.theme.titleBar.closeActionButtonTheme
         });
 
@@ -190,12 +216,14 @@ export class TitleBar implements HasNativeFrame {
     private createTitleText(options: TitleBarOptions): void {
 
         // add title text
-        this.titleText = this.mainFrame.CreateFontString(null, "ARTWORK");
-        WindowUtils.setFontStringSettings(this.titleText, {
+        this.titleText = CreateFrame("Frame", null, this.mainFrame);
+        this.titleText.__text = this.mainFrame.CreateFontString(null, "ARTWORK");
+        this.titleText.__text.SetAllPoints(this.titleText);
+        WindowUtils.setFontStringSettings(this.titleText.__text, {
             size: 10,
             color: options.theme.titleBar.titleTextColor
         });
-        this.titleText.SetText(options.titleText);
+        this.titleText.__text.SetText(options.titleText);
 
         // calculate the x offset
         let xOffset = 0;
@@ -205,11 +233,18 @@ export class TitleBar implements HasNativeFrame {
 
         // set available text width
         const width = this.mainFrame.GetWidth() - xOffset - (this.closeButton ? this.closeButton.getWidth() : 0);
-        print(width);
         this.titleText.SetWidth(width);
         this.titleText.SetHeight(this.mainFrame.GetHeight());
 
         // set position
         this.titleText.SetPoint("TOPLEFT", this.mainFrame, "TOPLEFT", xOffset, 0);
+
+        // enable window movement
+        this.titleText.SetScript("OnMouseDown", () => {
+            this.options.movingWindow.getNativeFrame().StartMoving();
+        });
+        this.titleText.SetScript("OnMouseUp", () => {
+            this.options.movingWindow.getNativeFrame().StopMovingOrSizing();
+        });
     }
 }

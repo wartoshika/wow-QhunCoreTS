@@ -3,7 +3,12 @@ import { ActionButtonTheme } from "./themes/WindowTheme";
 import { TableUtil } from "../../util/TableUtil";
 import { QhunDarkTheme } from "./themes/QhunDarkTheme";
 import { WindowUtils } from "./WindowUtils";
-import { FrameWithAdvancesProperties } from "./types";
+import { FrameWithAdvancesProperties } from "../types";
+import { FrameLevel } from "../FrameLevel";
+import { Inject } from "../../core/decorators/Inject";
+import { FrameManager } from "../FrameManager";
+import { Animation } from "../decorator/Animation";
+import { EaseInOut } from "../animation/transition/EaseInOut";
 
 export interface ActionButtonOptions {
 
@@ -39,7 +44,16 @@ export interface ActionButtonOptions {
 /**
  * a button like object with the possability to add a theme based object on it
  */
+@Animation({
+    showAnimation: {
+        transition: EaseInOut,
+        time: 200
+    }
+})
 export class ActionButton implements HasNativeFrame {
+
+    @Inject(FrameManager)
+    private frameManager: FrameManager;
 
     /**
      * the action button native frame
@@ -64,8 +78,9 @@ export class ActionButton implements HasNativeFrame {
     ) {
 
         // create the native frame
-        this.mainFrame = CreateFrame("Frame");
+        this.mainFrame = this.frameManager.create();
         this.mainFrame.SetFrameStrata("HIGH");
+        this.mainFrame.SetFrameLevel(FrameLevel.ACTION_BUTTON);
         this.buttonText = this.mainFrame.CreateFontString(null, "ARTWORK");
         this.buttonText.SetAllPoints(this.mainFrame);
 

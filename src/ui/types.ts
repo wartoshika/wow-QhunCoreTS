@@ -1,4 +1,6 @@
-interface HasBackground {
+import { AnimationOptions } from "./decorator/Animation";
+
+export interface HasBackground {
 
     /**
      * the background texture of the frame
@@ -6,7 +8,7 @@ interface HasBackground {
     __background?: WowTexture;
 }
 
-interface HasText {
+export interface HasText {
 
     /**
      * the text instance of the frame
@@ -14,9 +16,17 @@ interface HasText {
     __text?: WowFontString;
 }
 
+export interface HasAnimation {
+
+    /**
+     * animation data for this frame
+     */
+    __animation?: AnimationOptions
+}
+
 /**
  * a wow frame with advances properties used by the framework
  */
 export interface FrameWithAdvancesProperties extends
     AdvancedWowFrame<WowFrame, FrameWithAdvancesProperties>,
-    HasBackground, HasText { }
+    HasBackground, HasText, HasAnimation { }
