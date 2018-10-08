@@ -1,8 +1,8 @@
 import { Debugger } from "./Debugger";
 import { LogLevel } from "./LogLevel";
 import { Singleton } from "../decorators/Singleton";
-import { Color } from "../../util/Color";
-import { MultiReturn } from "../../util/MultiReturn";
+import { Color } from "../util/Color";
+import { MultiReturn } from "../util/MultiReturn";
 
 /**
  * displays debug information in a seperate chat window.

@@ -1,4 +1,4 @@
-import { Injectable } from "../decorators/Injectable";
+import { Injectable } from "../core/decorators/Injectable";
 import { Package } from "./Package";
 import { Protocol, ProtocolHeaderDivider, ProtocolHeaderBodyDivider } from "./Protocol";
 

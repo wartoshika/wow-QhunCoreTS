@@ -1,6 +1,6 @@
 import { HasNativeFrame } from "./HasNativeFrame";
 import { ActionButtonTheme } from "./themes/WindowTheme";
-import { TableUtil } from "../../util/TableUtil";
+import { TableUtil } from "../../core/util/TableUtil";
 import { QhunDarkTheme } from "./themes/QhunDarkTheme";
 import { WindowUtils } from "./WindowUtils";
 import { FrameWithAdvancesProperties } from "../types";

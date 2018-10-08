@@ -1,4 +1,4 @@
-import { AnyStringSignatureObject, StrictSignatureObject, TupleTypeChangeObject } from "../core/types";
+import { AnyStringSignatureObject, StrictSignatureObject, TupleTypeChangeObject } from "../types";
 
 /**
  * a util class to handle lua multi return a little bit easyer

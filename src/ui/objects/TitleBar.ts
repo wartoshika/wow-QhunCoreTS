@@ -1,4 +1,4 @@
-import { TableUtil } from "../../util/TableUtil";
+import { TableUtil } from "../../core/util/TableUtil";
 import { HasNativeFrame } from "./HasNativeFrame";
 import { WindowTheme } from "./themes/WindowTheme";
 import { QhunDarkTheme } from "./themes/QhunDarkTheme";

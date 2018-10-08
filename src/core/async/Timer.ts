@@ -1,5 +1,5 @@
 import { Injectable } from "../decorators/Injectable";
-import { RandomUtil } from "../../util/RandomUtil";
+import { RandomUtil } from "../util/RandomUtil";
 
 /**
  * a timer class that allowes to run callback functions after a given amount of time

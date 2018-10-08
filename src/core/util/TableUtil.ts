@@ -1,4 +1,4 @@
-import { StrictSignatureObject } from "../core/types";
+import { StrictSignatureObject } from "../types";
 
 export class TableUtil {
 
