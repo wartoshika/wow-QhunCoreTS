@@ -3,6 +3,7 @@ import { QhunAddon } from "./core/decorators/QhunAddon";
 import { DebugChatWindow } from "./core/debug/DebugChatWindow";
 import { TocValue } from "./core/decorators/TocValue";
 import { bootstrapAddon } from "./bootstrap";
+import { Timer } from "./core/async/Timer";
 
 interface MyTranslation extends Locale {
     firstKey: {
@@ -21,12 +22,27 @@ interface MyTranslation extends Locale {
 })
 class Addon {
 
-    @TocValue("Title")
-    private name: string;
+    @TocValue("Version")
+    private version: string;
 
-    constructor() {
+    constructor(
+        private timer: Timer,
+        @TocValue("Author") author: string
+    ) {
 
-        C_ChatInfo.SendAddonMessage("prefix", "text", "PARTY");
+        print(
+            `This addon has been written by ${author}`,
+            `The version is ${this.version}`
+        );
+
+        this.printAfterOneSecond();
+    }
+
+    private printAfterOneSecond(): void {
+
+        this.timer.timeout(() => {
+            print("One second passed!");
+        }, 1000);
     }
 }
 
