@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "node_modules/.bin/qhun-transpiler -p ./qhun-transpiler.json",
-    "build-dev": "node ../../qhun-transpiler/dist/bin/qhun-transpiler -p ./qhun-transpiler.json"
+    "build-dev": "node ../../qhun-transpiler/dist/bin/qhun-transpiler -p ./qhun-transpiler.json",
+    "tree": "./node_modules/.bin/npm-run-all dependency-all dependency-core dependency-locale dependency-ui dependency-model",
+    "dependency-all": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src | dot -T svg > dependency_visual/overall.svg",
+    "dependency-core": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/core | dot -T svg > dependency_visual/core.svg",
+    "dependency-locale": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/locale | dot -T svg > dependency_visual/locale.svg",
+    "dependency-ui": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/ui | dot -T svg > dependency_visual/ui.svg",
+    "dependency-model": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/model | dot -T svg > dependency_visual/model.svg"
   },
   "keywords": [
     "wow",
@@ -18,6 +24,8 @@
     "@wartoshika/lua-declarations": "0.0.1",
     "@wartoshika/qhun-transpiler": "^0.4.0",
     "@wartoshika/wow-declarations": "0.0.3",
+    "dependency-cruiser": "^4.6.0",
+    "npm-run-all": "^4.1.3",
     "typescript": "^3.1.1"
   }
 }

@@ -1,5 +1,5 @@
 import { RGBATuple, RGBTuple } from "./themes/WindowTheme";
-import { FrameWithAdvancesProperties } from "./types";
+import { FrameWithAdvancesProperties } from "../types";
 import { TableUtil } from "../../util/TableUtil";
 
 export class WindowUtils {
