@@ -1,16 +1,8 @@
-import { Locale } from "./locale/Locale";
 import { QhunAddon } from "./core/decorators/QhunAddon";
 import { DebugChatWindow } from "./core/debug/DebugChatWindow";
 import { TocValue } from "./core/decorators/TocValue";
-import { bootstrapAddon } from "./bootstrap";
+import { bootstrapAddon } from "./core/bootstrap";
 import { Timer } from "./core/async/Timer";
-
-interface MyTranslation extends Locale {
-    firstKey: {
-        key: string
-    },
-    secondKey: void
-}
 
 @QhunAddon({
     embed: true,

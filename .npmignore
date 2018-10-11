@@ -1,0 +1,9 @@
+.vscode
+dist
+dependency_visual
+
+qhun-transpiler.json
+tsconfig.json
+tslint.json
+
+*.tgz
