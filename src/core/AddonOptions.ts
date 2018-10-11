@@ -19,7 +19,6 @@ export class AddonOptions implements QhunAddonOptions {
         return AddonOptions.instance;
     }
 
-    public embed: boolean;
     public addonName: string;
     public debuggerInstance: Debugger;
 }
