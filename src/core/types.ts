@@ -6,12 +6,6 @@ import { Debugger } from "./debug/Debugger";
 export interface QhunAddonOptions {
 
     /**
-     * the name of your addon. this is important because this value will be used as prefix
-     * for created frames, for aquiring data from your toc file ...
-     */
-    addonName: string,
-
-    /**
      * creates a debug environment for developing purpose. when empty, no debugging is enabled.
      */
     debugger?: {

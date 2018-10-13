@@ -17,6 +17,8 @@ export * from "./database/repository/CrudRepository";
 export * from "./database/repository/EntityHasPrimaryKey";
 export * from "./database/repository/ReadAndWriteRepository";
 export * from "./database/repository/ReadonlyRepository";
+export * from "./database/repository/ConfigRepository";
+export * from "./database/repository/Repository";
 
 // DEBUG MODULE
 export * from "./debug/bootstrapDebugger";
@@ -45,7 +47,11 @@ export * from "./util/Output";
 export * from "./util/RandomUtil";
 export * from "./util/TableUtil";
 
+// BOOTSTRAP MODULE
+export * from "./bootstrap/bootstrap";
+export * from "./bootstrap/BootstrapPhase";
+
 // ROOT FILES
 export * from "./types";
 export * from "./AddonOptions";
-export * from "./bootstrap";
+export * from "./bootstrap/bootstrap";

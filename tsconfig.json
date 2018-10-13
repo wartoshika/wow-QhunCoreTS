@@ -12,7 +12,8 @@
         "sourceMap": true,
         "typeRoots": [
             "node_modules/@types",
-            "node_modules/@wartoshika"
+            "node_modules/@wartoshika",
+            "src/core/declarations"
         ]
     },
     "include": [

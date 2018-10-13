@@ -1,9 +1,8 @@
-import { QhunAddonOptions } from "./types";
 import { Singleton } from "./decorators/Singleton";
 import { Debugger } from "./debug/Debugger";
 
 @Singleton()
-export class AddonOptions implements QhunAddonOptions {
+export class AddonOptions {
 
     private static instance: AddonOptions;
 

@@ -1,6 +1,6 @@
-import { SavedVariablesDatabase } from "../SavedVariablesDatabase";
 import { ReadAndWriteRepository } from "./ReadAndWriteRepository";
 import { EntityHasPrimaryKey } from "./EntityHasPrimaryKey";
+import { Database } from "../Database";
 
 /**
  * a read and write repository of over an array of records of the save type.
@@ -8,7 +8,7 @@ import { EntityHasPrimaryKey } from "./EntityHasPrimaryKey";
 export abstract class CrudRepository<TargetClass extends EntityHasPrimaryKey = EntityHasPrimaryKey, Identifier = any> implements ReadAndWriteRepository<TargetClass, Identifier> {
 
     constructor(
-        private database: SavedVariablesDatabase<TargetClass[]>
+        private database: Database<TargetClass[]>
     ) { }
 
     public findAll(): TargetClass[] {

@@ -13,7 +13,7 @@ export function QhunAddon(
 
     // save addon options
     const addonOptionsInstance = AddonOptions.getInstance();
-    addonOptionsInstance.addonName = options.addonName;
+    addonOptionsInstance.addonName = __FILE_META[1];
 
     // bootstrap the debugger
     if (options.debugger && options.debugger.instance) {
