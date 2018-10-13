@@ -1,8 +1,8 @@
 import { Repository } from "./Repository";
-import { Database } from "../Database";
-import { AnyStringSignatureObject } from "../../types";
-import { Logger } from "../../debug/Logger";
-import { Injectable } from "../../decorators/Injectable";
+import { Database } from "../storage/Database";
+import { AnyStringSignatureObject } from "../../core/types";
+import { Logger } from "../../core/debug/Logger";
+import { Injectable } from "../../core/decorators/Injectable";
 
 /**
  * a repository that acts link a config getter and setter. optimal when using it for addon options with boolish oder string vars.

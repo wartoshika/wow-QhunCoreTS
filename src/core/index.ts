@@ -10,15 +10,7 @@ export * from "./async/rx/from/observableFromArray";
 export * from "./async/rx/from/observableFromEvent";
 
 // DATA MODULE
-export * from "./data/Serializable"
-export * from "./database/Database"
-export * from "./database/SavedVariablesDatabase";
-export * from "./database/repository/CrudRepository";
-export * from "./database/repository/EntityHasPrimaryKey";
-export * from "./database/repository/ReadAndWriteRepository";
-export * from "./database/repository/ReadonlyRepository";
-export * from "./database/repository/ConfigRepository";
-export * from "./database/repository/Repository";
+export * from "./data/Serializable";
 
 // DEBUG MODULE
 export * from "./debug/bootstrapDebugger";

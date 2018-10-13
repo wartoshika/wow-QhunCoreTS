@@ -9,13 +9,14 @@
     "copy": "./node_modules/.bin/npm-run-all copy-src copy-tsconfig",
     "copy-src": "xcopy \".\\src\" \"..\\QhunCoreTSTestAddon\\node_modules\\@wartoshika\\wow-qhun-core-ts\\src\\\" /E /Y /Q",
     "copy-tsconfig": "xcopy \".\\tsconfig.json\" \"..\\QhunCoreTSTestAddon\\node_modules\\@wartoshika\\wow-qhun-core-ts\\\" /Y /Q",
-    "tree": "./node_modules/.bin/npm-run-all dependency-all dependency-core dependency-locale dependency-model dependency-net dependency-ui",
-    "dependency-all": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src | dot -T svg > dependency_visual/overall.svg",
-    "dependency-core": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/core | dot -T svg > dependency_visual/core.svg",
-    "dependency-locale": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/locale | dot -T svg > dependency_visual/locale.svg",
-    "dependency-model": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/model | dot -T svg > dependency_visual/model.svg",
-    "dependency-net": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/net | dot -T svg > dependency_visual/net.svg",
-    "dependency-ui": "./node_modules/.bin/dependency-cruise -x node_modules --ts-pre-compilation-deps -T dot src/ui | dot -T svg > dependency_visual/ui.svg"
+    "tree": "./node_modules/.bin/npm-run-all dependency-all dependency-core dependency-locale dependency-model dependency-net dependency-ui dependency-database",
+    "dependency-all": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src | dot -T svg > dependency_visual/overall.svg",
+    "dependency-core": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src/core | dot -T svg > dependency_visual/core.svg",
+    "dependency-locale": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src/locale | dot -T svg > dependency_visual/locale.svg",
+    "dependency-model": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src/model | dot -T svg > dependency_visual/model.svg",
+    "dependency-net": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src/net | dot -T svg > dependency_visual/net.svg",
+    "dependency-ui": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src/ui | dot -T svg > dependency_visual/ui.svg",
+    "dependency-database": "./node_modules/.bin/dependency-cruise -x node_modules -x \"^index.ts\" --ts-pre-compilation-deps -T dot src/database | dot -T svg > dependency_visual/database.svg"
   },
   "keywords": [
     "wow",

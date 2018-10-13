@@ -1,6 +1,6 @@
 import { ReadAndWriteRepository } from "./ReadAndWriteRepository";
 import { EntityHasPrimaryKey } from "./EntityHasPrimaryKey";
-import { Database } from "../Database";
+import { Database } from "../storage/Database";
 
 /**
  * a read and write repository of over an array of records of the save type.
