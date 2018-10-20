@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node_modules/.bin/qhun-transpiler -p ./qhun-transpiler.json",
-    "build-dev": "node ../../qhun-transpiler/dist/bin/qhun-transpiler -p ./qhun-transpiler.json",
+    "build-dev": "node ../../qhun-transpiler/dist/index.js -p ./qhun-transpiler.json",
     "copy": "./node_modules/.bin/npm-run-all copy-src copy-tsconfig",
     "copy-src": "xcopy \".\\src\" \"..\\QhunCoreTSTestAddon\\node_modules\\@wartoshika\\wow-qhun-core-ts\\src\\\" /E /Y /Q",
     "copy-tsconfig": "xcopy \".\\tsconfig.json\" \"..\\QhunCoreTSTestAddon\\node_modules\\@wartoshika\\wow-qhun-core-ts\\\" /Y /Q",

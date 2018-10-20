@@ -1,4 +1,5 @@
 import { Debugger } from "./debug/Debugger";
+import { ModuleConfig } from "./data/ModuleConfig";
 
 /**
  * the addon options required to bootstrap the addon
@@ -19,7 +20,12 @@ export interface QhunAddonOptions {
          * additional data for the debugger
          */
         data: any
-    }
+    },
+
+    /**
+     * contains optional module specific configuration
+     */
+    modules?: ModuleConfig
 };
 
 /**
@@ -38,6 +44,11 @@ export interface ClassConstructor<T extends object = object> {
      * the reflected class name
      */
     __name?: string;
+
+    /**
+     * the reflected namespace including class filename of the class
+     */
+    __namespace?: string;
 
     /**
      * class constructor function

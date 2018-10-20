@@ -14,6 +14,7 @@ export function QhunAddon(
     // save addon options
     const addonOptionsInstance = AddonOptions.getInstance();
     addonOptionsInstance.addonName = __FILE_META[1];
+    addonOptionsInstance.moduleConfig = options.modules || {};
 
     // bootstrap the debugger
     if (options.debugger && options.debugger.instance) {

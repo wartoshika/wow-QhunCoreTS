@@ -1,6 +1,6 @@
 import { AddonOptions } from "../AddonOptions";
 
-declare type PossibleKnownTocFieldName = "Author" | "Title" | "Notes" | "Version";
+declare type PossibleKnownTocFieldName = "Author" | "Title" | "Notes" | "Version" | "SavedVariables";
 
 /**
  * get a value from the addon's toc file. This decorator can be used as PropertyDecorator or ParameterDecorator.

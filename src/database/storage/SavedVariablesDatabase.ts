@@ -1,17 +1,21 @@
 import { Database } from "./Database";
+import { Injectable } from "../../core/decorators/Injectable";
+import { DatabaseModuleConfig } from "../decorators/DatabaseModuleConfig";
+import { Serialized } from "../../core/data/Serialized";
 
 /**
  * a database that uses the saved variables of an addon as datasource
  */
-export class SavedVariablesDatabase<TargetType = object> implements Database<TargetType> {
+@Injectable()
+export class SavedVariablesDatabase<TargetType extends object = object> implements Database<TargetType> {
 
     constructor(
-        private variableName: string
+        @DatabaseModuleConfig("savedVariableName", true) private variableName: string
     ) { }
 
-    public read(): TargetType {
+    public read(): Serialized<TargetType> {
 
-        return _G[this.variableName];
+        return _G[this.variableName] || {};
     }
 
     public write(data: TargetType): void {
