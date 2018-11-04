@@ -15,9 +15,7 @@ export class WindowUtils {
             const colorTexture = frame.CreateTexture(null, "BACKGROUND");
 
             // set point on parent frame
-            colorTexture.SetPoint("TOPLEFT", frame, "TOPLEFT");
-            colorTexture.SetWidth(frame.GetWidth());
-            colorTexture.SetHeight(frame.GetHeight());
+            colorTexture.SetAllPoints(frame);
 
             // save the color texture on the object
             frame.__background = colorTexture;

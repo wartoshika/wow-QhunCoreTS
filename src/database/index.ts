@@ -15,7 +15,13 @@ export * from "./repository/impl/ProfileRepository";
 // DECORATOR MODULE
 export * from "./decorators/DatabaseModuleConfig";
 
+// DATABASE RX MODULE
+export * from "./rx/observableFromConfigRepository";
+
 // STORAGE FILES
 export * from "./storage/Database"
 export * from "./storage/SavedVariablesDatabase";
 export * from "./storage/DatabaseProfile";
+
+// ROOT FILES
+export * from "./DatabaseEvents";

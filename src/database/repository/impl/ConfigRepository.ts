@@ -3,6 +3,9 @@ import { AnyStringSignatureObject } from "../../../core/types";
 import { Logger } from "../../../core/debug/Logger";
 import { Database } from "../../storage/Database";
 import { DatabaseProfile } from "../../storage/DatabaseProfile";
+import { Inject } from "../../../core";
+import { EventEmitter } from "../../../core/event/EventEmitter";
+import { DatabaseEvents } from "../../DatabaseEvents";
 
 /**
  * a repository that acts link a config getter and setter. optimal when using it for addon options with boolish oder string vars.
@@ -13,6 +16,12 @@ export abstract class ConfigRepository<ConfigStructure extends AnyStringSignatur
      * the database prefix
      */
     private prefix: string;
+
+    /**
+     * the event emitter instance
+     */
+    @Inject(EventEmitter)
+    protected eventEmitter: EventEmitter<DatabaseEvents>;
 
     constructor(
         protected database: Database<ConfigStructure>,
@@ -52,6 +61,14 @@ export abstract class ConfigRepository<ConfigStructure extends AnyStringSignatur
 
             // write the storage
             this.database.write(currentStorage);
+
+            // emit write event
+            this.eventEmitter.emit("REPOSITORY_WRITE", {
+                repository: this,
+                prefix: this.prefix,
+                changedPath: path.toString(),
+                newData: currentStorage
+            });
         } catch (e) {
 
             this.logger.error(`Error while writing to database at path ${path}. Error was: ${e}`);
@@ -101,6 +118,16 @@ export abstract class ConfigRepository<ConfigStructure extends AnyStringSignatur
         }
 
         return true;
+    }
+
+    /**
+     * check if the current repository is empty
+     */
+    public isEmpty(): boolean {
+
+        // read current
+        const currentStorage = this.database.read();
+        return Object.keys(currentStorage[this.prefix]).length === 0;
     }
 
     /**

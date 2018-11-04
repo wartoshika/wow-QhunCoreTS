@@ -39,6 +39,7 @@ export * from "./util/MultiReturn";
 export * from "./util/Output";
 export * from "./util/RandomUtil";
 export * from "./util/TableUtil";
+export * from "./util/MathUtil";
 
 // BOOTSTRAP MODULE
 export * from "./bootstrap/bootstrap";
