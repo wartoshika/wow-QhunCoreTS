@@ -1,4 +1,5 @@
-import { Injectable, Logger } from "../core";
+import { Injectable } from "../core/decorators/Injectable";
+import { Logger } from "../core/debug/Logger";
 import { SlashExecutor } from "./SlashExecutor";
 
 /**
@@ -87,7 +88,7 @@ export class SlashCommandRegistar {
                 // execute function on object if exists
                 if (typeof (command.handler as SlashExecutor).execute === "function") {
 
-                    return command.handler.execute(null, message);
+                    return command.handler.execute(message, editbox);
                 }
             };
         });

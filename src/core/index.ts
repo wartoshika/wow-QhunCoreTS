@@ -40,10 +40,15 @@ export * from "./util/Output";
 export * from "./util/RandomUtil";
 export * from "./util/TableUtil";
 export * from "./util/MathUtil";
+export * from "./util/EventUtil";
 
 // BOOTSTRAP MODULE
 export * from "./bootstrap/bootstrap";
 export * from "./bootstrap/BootstrapPhase";
+
+// EVENT EMITTER MODULE
+export * from "./event/EventEmitter";
+export * from "./event/Events";
 
 // ROOT FILES
 export * from "./types";

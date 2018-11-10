@@ -11,10 +11,10 @@ export interface HasNativeFrame {
     /**
      * get the width of the native frame
      */
-    getWidth(): number;
+    getWidth?(): number;
 
     /**
      * get the height of the native frame
      */
-    getHeight(): number;
+    getHeight?(): number;
 }

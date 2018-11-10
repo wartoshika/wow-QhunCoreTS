@@ -5,8 +5,8 @@ export interface SlashExecutor {
 
     /**
      * executs or handles the given slash command
-     * @param slashName the command name
      * @param message the message that has been inputed
+     * @param editbox the edit box where the command has been sent from
      */
-    execute(slashName: string, message: string): void;
+    execute(message: string, editbox: WowEditBox): void;
 }

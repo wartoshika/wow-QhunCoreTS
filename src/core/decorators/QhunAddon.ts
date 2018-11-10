@@ -8,7 +8,7 @@ import { Injector } from "../di/Injector";
  * @param options important options for your addon
  */
 export function QhunAddon(
-    options: QhunAddonOptions
+    options: QhunAddonOptions = {}
 ): ClassDecorator {
 
     // save addon options
