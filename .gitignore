@@ -77,4 +77,5 @@ typings/
 .coveralls.yml
 
 # tmp dependency tree
-dependency_visual/*
+dependency_visual/
+dist/
