@@ -1,5 +1,9 @@
 # QhunCoreTS
 
+[![npm version](https://badge.fury.io/js/%40wartoshika%2Fwow-qhun-core-ts.svg)](https://www.npmjs.com/package/@wartoshika/wow-qhun-core-ts)
+[![Dependencies](https://david-dm.org/wartoshika/wow-qhun-core-ts.svg)](https://david-dm.org/wartoshika/wow-qhun-core-ts)
+[![Known Vulnerabilities](https://snyk.io/test/npm/@wartoshika/wow-qhun-core-ts/badge.svg)](https://snyk.io/test/npm/@wartoshika/wow-qhun-core-ts)
+
 > Level up your addon quallity by using a modern language with modern design patterns!
 
 **QhunCoreTS** is a **World of Warcraft framework** written in **TypeScript that transpiles into pure LUA** with **full WoW Battle for Azeroth compatiblity!**
