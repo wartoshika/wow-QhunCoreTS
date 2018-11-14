@@ -1,6 +1,6 @@
 {
-  "name": "wow-qhun-core-ts",
-  "version": "1.0.0",
+  "name": "@wartoshika/wow-qhun-core-ts",
+  "version": "0.1.0",
   "description": "A Framework written in Typescript for World of Warcraft Addons",
   "main": "index.js",
   "scripts": {
