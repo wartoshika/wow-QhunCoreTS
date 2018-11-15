@@ -6,7 +6,7 @@ export class RandomUtil {
     public static uuid(): string {
 
         // replace by template
-        const uuidResult = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/, match => {
+        const uuidResult = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, match => {
             const hex = match === "x" ? RandomUtil.randomBetween(0, 0xf) : RandomUtil.randomBetween(0, 0xb)
             return hex.toString(16);
         });
