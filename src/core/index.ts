@@ -12,6 +12,7 @@ export * from "./async/rx/from/observableFromEvent";
 // DATA MODULE
 export * from "./data/Serializable";
 export * from "./data/ModuleConfig";
+export * from "./data/Optional";
 
 // DEBUG MODULE
 export * from "./debug/bootstrapDebugger";
