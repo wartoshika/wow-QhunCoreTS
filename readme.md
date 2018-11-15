@@ -1,8 +1,13 @@
-# QhunCoreTS
-
 [![npm version](https://badge.fury.io/js/%40wartoshika%2Fwow-qhun-core-ts.svg)](https://www.npmjs.com/package/@wartoshika/wow-qhun-core-ts)
 [![Dependencies](https://david-dm.org/wartoshika/wow-qhun-core-ts.svg)](https://david-dm.org/wartoshika/wow-qhun-core-ts)
 [![Known Vulnerabilities](https://snyk.io/test/npm/@wartoshika/wow-qhun-core-ts/badge.svg)](https://snyk.io/test/npm/@wartoshika/wow-qhun-core-ts)
+
+Service | Master | Dev  |
+----    | ----   | ---- |
+CI Status | [![Build Status](https://travis-ci.org/wartoshika/wow-QhunCoreTS.svg?branch=master)](https://travis-ci.org/wartoshika/wow-QhunCoreTS) | [![Build Status](https://travis-ci.org/wartoshika/wow-QhunCoreTS.svg?branch=dev)](https://travis-ci.org/wartoshika/wow-QhunCoreTS) |
+Coverage | [![Coverage Status](https://coveralls.io/repos/github/wartoshika/wow-QhunCoreTS/badge.svg?branch=master)](https://coveralls.io/github/wartoshika/wow-QhunCoreTS?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/wartoshika/wow-QhunCoreTS/badge.svg?branch=dev)](https://coveralls.io/github/wartoshika/wow-QhunCoreTS?branch=dev) |
+
+# QhunCoreTS
 
 > Level up your addon quallity by using a modern language with modern design patterns!
 
@@ -38,7 +43,7 @@
 - Type save variables at compiler time
 - Multireturn support (via the included transpiler)
 
-TypeScript is a superset of JavaScript and it's syntax is (in my opinion) easy to read and write. There is a realy large comunity for JavaScript and TypeScript related problems. I have written a transpiler ([qhun-transpiler](https://github.com/wartoshika/qhun-transpiler)) that targets LUA 5.1 and World of Warcraft per design.
+TypeScript is a superset of JavaScript and it's syntax is (in my opinion) easy to read and write. There is a realy large comunity for JavaScript and TypeScript related problems. I have written a transpiler ([wow-QhunCoreTs](https://github.com/wartoshika/wow-QhunCoreTs)) that targets LUA 5.1 and World of Warcraft per design.
 
 ## **Example addon**
 
