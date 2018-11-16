@@ -1,3 +1,5 @@
+import { TableUtil } from "./TableUtil";
+
 /**
  * This util class handles formatted output
  */
@@ -21,7 +23,7 @@ export class Output {
      */
     private static convertToFormattedString(arg: any): string {
 
-        if ((typeof arg) as string === "table") {
+        if (TableUtil.isTable(arg)) {
 
             const output: string[] = ["{"];
             output.push(...Object.keys(arg).map(key => {

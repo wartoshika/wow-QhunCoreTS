@@ -1,6 +1,6 @@
 import { ClassConstructor } from "../types";
 
-interface SingletonClass<T extends ClassConstructor> extends ClassConstructor<T> {
+export interface SingletonClass<T extends ClassConstructor> extends ClassConstructor<T> {
 
     /**
      * a property to check if the singleton has allready been created
@@ -13,25 +13,26 @@ interface SingletonClass<T extends ClassConstructor> extends ClassConstructor<T>
  * at runtime
  */
 export function Singleton(): ClassDecorator {
-    return <ClassDecorator>(<Target extends ClassConstructor>(target: SingletonClass<Target>) => {
+
+    return <ClassDecorator>(<Target extends SingletonClass<any>>(target: Target) => {
 
         // save the original constructor function
-        const originalConstructor = target.__init;
+        const originalConstructor = (target.__init || target) as ClassConstructor;
 
-        // override constructor to check if the class has been instantiated twice
-        return (thisArg: object, ...otherArguments: any[]) => {
+        return class Singleton extends originalConstructor {
 
-            // check if the singleton runtime check property has allready been placed
-            // on this target
-            if (target.__singletonHasBeenCreated) {
-                throw `The singleton class cannot be instantiated twice! Class name was ${target.__name}.`;
+            constructor(...args: any[]) {
+                if (target.__singletonHasBeenCreated) {
+
+                    throw `The singleton class cannot be instantiated twice! Class name was ${target.__name}.`;
+                }
+
+                // set singleton property
+                target.__singletonHasBeenCreated = true;
+
+                // construct target
+                super(...args);
             }
-
-            // set singleton property
-            target.__singletonHasBeenCreated = true;
-
-            // construct target
-            originalConstructor(thisArg, ...otherArguments);
-        };
+        }
     });
 }

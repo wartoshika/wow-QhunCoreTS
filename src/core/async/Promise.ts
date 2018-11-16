@@ -2,6 +2,7 @@ import { AddonOption } from "../decorators/AddonOption";
 import { Logger } from "../debug/Logger";
 import { Inject } from "../decorators/Inject";
 import { Timer } from "./Timer";
+import { TableUtil } from "../util/TableUtil";
 
 interface PromiseLike<T> {
 
@@ -174,7 +175,7 @@ export class Promise<T> implements PromiseLike<T> {
         try {
 
             // find a promise like value type
-            if ((typeof value as string) === "table" && typeof value.done === "function") {
+            if (TableUtil.isTable(value) && typeof value.done === "function") {
 
                 // resolve this chained promise like value
                 return this.internalResolve(value.done.bind(value), this.resolve, this.reject);

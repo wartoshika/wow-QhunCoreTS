@@ -1,5 +1,6 @@
 import { ClassConstructor } from "../types";
 import { InjectableClass } from "./InjectableClass";
+import { TableUtil } from "../util/TableUtil";
 
 /**
  * the reflector can resolve static transpiled method signatures.
@@ -22,7 +23,7 @@ export class Reflector {
      */
     public isReflectableClass(ctor: InjectableClass): ctor is InjectableClass {
 
-        return (typeof ctor as string) === "table" && ctor.__staticReflection !== undefined && ctor.__injectable === true;
+        return TableUtil.isTable(ctor) && ctor.__staticReflection !== undefined && ctor.__injectable === true;
     }
 
     /**
@@ -31,6 +32,6 @@ export class Reflector {
      */
     public isClassButNotInjectable(ctor: InjectableClass): ctor is ClassConstructor {
 
-        return (typeof ctor as string) === "table" && ctor.__staticReflection !== undefined && !ctor.__injectable;
+        return TableUtil.isTable(ctor) && ctor.__staticReflection !== undefined && !ctor.__injectable;
     }
 }

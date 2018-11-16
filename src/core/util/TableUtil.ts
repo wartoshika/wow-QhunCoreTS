@@ -25,4 +25,13 @@ export class TableUtil {
 
         return original as Required<T>;
     }
+
+    /**
+     * test if the given object is a table
+     * @param object the object to test
+     */
+    public static isTable(object: object): boolean {
+
+        return object !== null && ((typeof object) as string === "table" || typeof object === "object");
+    }
 }

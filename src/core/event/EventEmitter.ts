@@ -1,5 +1,6 @@
 import { Injectable } from "../decorators/Injectable";
 import { Events } from "./Events";
+import { TableUtil } from "../util/TableUtil";
 
 /**
  * an event emitter that can broadcast events to subscribers.
@@ -38,7 +39,7 @@ export class EventEmitter<E extends Events> {
     public off<T extends keyof E>(event: T, callback: (payload: E[T]) => void): void {
 
         // null check
-        if ((typeof this.listeners[event]) as string === "table") {
+        if (TableUtil.isTable(this.listeners[event])) {
 
             // search for that callback and remove it
             this.listeners[event] = this.listeners[event].filter(listener => {
@@ -56,7 +57,7 @@ export class EventEmitter<E extends Events> {
     public emit<T extends keyof E>(event: T, payload: E[T]): void {
 
         // check if there are listeners on this event
-        if ((typeof this.listeners[event]) as string === "table") {
+        if (TableUtil.isTable(this.listeners[event])) {
 
             // call all listeners
             this.listeners[event].forEach(listener => {

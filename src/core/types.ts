@@ -37,7 +37,7 @@ export interface ClassConstructor<T extends object = object> {
      * every class method with its dependencies in correct order
      */
     __staticReflection?: {
-        [methodName: string]: Function[]
+        [methodName: string]: any[]
     };
 
     /**
