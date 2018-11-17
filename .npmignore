@@ -1,6 +1,11 @@
 .vscode
 dist
 dependency_visual
+test
+.nyc_output
+coverage
+.nycrc
+.travis.yml
 
 qhun-transpiler.json
 tsconfig.json
