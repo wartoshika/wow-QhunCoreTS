@@ -137,6 +137,16 @@ export class Timer {
     }
 
     /**
+     * removes the timeout/interval request by its identifier
+     * @param identifier the identifier to remove
+     */
+    public remove(identifier: string): void {
+
+        delete this.listeners[identifier];
+        this.checkStartStopTimer();
+    }
+
+    /**
      * updates the timer based on the event frame update
      * @param timePassed the time passed in milliseconds
      */
@@ -159,16 +169,6 @@ export class Timer {
                 listener.counter = 0;
             }
         });
-    }
-
-    /**
-     * removes the timeout/interval request by its identifier
-     * @param identifier the identifier to remove
-     */
-    private remove(identifier: string): void {
-
-        delete this.listeners[identifier];
-        this.checkStartStopTimer();
     }
 
     /**

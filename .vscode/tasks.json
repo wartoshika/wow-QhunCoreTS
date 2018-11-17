@@ -10,6 +10,8 @@
             "args": [
                 "-r",
                 "ts-node/register",
+                "-r",
+                "test/mocks/enableMocks.ts",
                 "${file}"
             ],
             "options": {

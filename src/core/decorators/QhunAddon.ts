@@ -16,11 +16,6 @@ export function QhunAddon(
     addonOptionsInstance.addonName = __FILE_META[1];
     addonOptionsInstance.moduleConfig = options.modules || {};
 
-    // bootstrap the debugger
-    if (options.debugger && options.debugger.instance) {
-        addonOptionsInstance.debuggerInstance = bootstrapDebugger(options.debugger.instance, [options.debugger.data]);
-    }
-
     // go on with dependency injection
     const injector = Injector.getInstance();
     return <ClassDecorator>(<Target extends Function>(target: ClassConstructor<Target>) => {

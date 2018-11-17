@@ -1,5 +1,4 @@
 import { Debugger } from "./Debugger";
-import { AddonOption } from "../decorators/AddonOption";
 import { Injectable } from "../decorators/Injectable";
 
 /**
@@ -8,22 +7,19 @@ import { Injectable } from "../decorators/Injectable";
 @Injectable()
 export class Logger implements Debugger {
 
-    @AddonOption("debuggerInstance")
-    private debugger: Debugger;
-
     public debug(...args: any[]): void {
-        this.debugger.debug(...args);
+        print("[DEBUG] ", ...args);
     }
 
     public info(...args: any[]): void {
-        this.debugger.info(...args);
+        print("[INFO] ", ...args);
     }
 
     public warning(...args: any[]): void {
-        this.debugger.warning(...args);
+        print("[WARNING] ", ...args);
     }
 
     public error(...args: any[]): void {
-        this.debugger.error(...args);
+        print("[ERROR] ", ...args);
     }
 }

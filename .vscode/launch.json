@@ -12,9 +12,26 @@
             "args": [
                 "-r",
                 "ts-node/register",
+                "-r",
+                "test/mocks/enableMocks.ts",
                 "${file}"
             ],
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug All Test Files",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "-r",
+                "ts-node/register",
+                "-r",
+                "test/mocks/enableMocks.ts",
+                "./test/**/*.spec.ts"
+            ],
+            "internalConsoleOptions": "openOnSessionStart",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

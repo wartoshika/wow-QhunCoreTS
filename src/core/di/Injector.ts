@@ -32,7 +32,8 @@ export class Injector {
      */
     private instanceStorage: {
         ctor: Function,
-        instance: Object
+        instance: Object,
+        manual: boolean
     }[] = [];
 
     constructor() {
@@ -43,7 +44,34 @@ export class Injector {
         // create another instance
         this.instanceStorage.push({
             ctor: Injector,
-            instance: this
+            instance: this,
+            manual: false
+        });
+    }
+
+    /**
+     * adds the given instance to the internal stack
+     * @param ctor the constructor of the instance
+     * @param instance the instance itself
+     */
+    public addInstance<T extends Object>(ctor: ClassConstructor<T>, instance: Partial<T>): void {
+
+        if (!this.findExistingInstance(ctor)) {
+            this.instanceStorage.push({
+                ctor: ctor,
+                instance: instance as Required<T>,
+                manual: true
+            });
+        }
+    }
+
+    /**
+     * removes all manually added instances from the internal stack
+     */
+    public clearManual(): void {
+
+        this.instanceStorage = this.instanceStorage.filter(dependency => {
+            return dependency.manual === false;
         });
     }
 
@@ -94,7 +122,8 @@ export class Injector {
         const instance = new (ctor as ClassConstructor)(...resolvedDependencies);
         this.instanceStorage.push({
             ctor: ctor,
-            instance: instance
+            instance: instance,
+            manual: false
         });
         return instance as T;
     }

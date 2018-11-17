@@ -1,4 +1,3 @@
-import { AddonOption } from "../decorators/AddonOption";
 import { Logger } from "../debug/Logger";
 import { Inject } from "../decorators/Inject";
 import { Timer } from "./Timer";
@@ -28,7 +27,7 @@ enum PromiseState {
  */
 export class Promise<T> implements PromiseLike<T> {
 
-    @AddonOption("debuggerInstance")
+    @Inject(Logger)
     private logger: Logger;
 
     @Inject(Timer)
@@ -72,7 +71,7 @@ export class Promise<T> implements PromiseLike<T> {
             return this.doneInternal((_, value?: T) => {
                 if (typeof onFulfilled === "function") {
                     try {
-                        return resolve(onFulfilled(value) as any);
+                        return resolve(onFulfilled(_ !== undefined ? _ : value) as any);
                     } catch (e) {
                         return reject(e);
                     }
@@ -83,7 +82,7 @@ export class Promise<T> implements PromiseLike<T> {
 
                 if (typeof onRejected === "function") {
                     try {
-                        return resolve(onRejected(reason) as any);
+                        return resolve(onRejected(_ !== undefined ? _ : reason) as any);
                     } catch (e) {
                         return reject(e);
                     }
