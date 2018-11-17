@@ -14,16 +14,19 @@ export class Reflector {
      */
     public getMethodSignature<T extends ClassConstructor>(ctor: T, methodName: (keyof T) | "constructor" = "constructor"): any[] {
 
-        return ctor.__staticReflection[methodName as string];
+        if (ctor && ctor.__staticReflection) {
+            return ctor.__staticReflection[methodName as string] || [];
+        }
+        return [];
     }
 
     /**
      * check if the given class is a reflectable class
      * @param ctor the class to check
      */
-    public isReflectableClass(ctor: InjectableClass): ctor is InjectableClass {
+    public isInjectableClass(ctor: InjectableClass): ctor is InjectableClass {
 
-        return TableUtil.isTable(ctor) && ctor.__staticReflection !== undefined && ctor.__injectable === true;
+        return (TableUtil.isTable(ctor) || typeof ctor === "function") && ctor.__staticReflection !== undefined && ctor.__injectable === true;
     }
 
     /**
@@ -32,6 +35,6 @@ export class Reflector {
      */
     public isClassButNotInjectable(ctor: InjectableClass): ctor is ClassConstructor {
 
-        return TableUtil.isTable(ctor) && ctor.__staticReflection !== undefined && !ctor.__injectable;
+        return (TableUtil.isTable(ctor) || typeof ctor === "function") && ctor.__staticReflection !== undefined && !ctor.__injectable;
     }
 }

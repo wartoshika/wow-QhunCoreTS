@@ -50,9 +50,13 @@ export class Injector {
     /**
      * instantiates a new class by its constructor and resolves all dependencies
      * @param ctor the class to instantiate
-     * @param defaultArguments the default arguments that will take place if one dependency could not resolved
      */
-    public instantiateClass<T extends Object>(ctor: ClassConstructor<T>, defaultArguments: any[] = []): T {
+    public instantiateClass<T extends Object>(ctor: ClassConstructor<T>): T {
+
+        // test if the given ctor is injectable
+        if (this.reflector.isClassButNotInjectable(ctor)) {
+            throw `Given class ${ctor.name} is not injectable and can not be instantiated! Do you forget to add @Injectable()?`;
+        }
 
         const existing = this.findExistingInstance(ctor);
         if (existing) {
@@ -63,10 +67,10 @@ export class Injector {
         const dependencies = this.reflector.getMethodSignature(ctor, "constructor");
 
         // create dependencies
-        const resolvedDependencies = dependencies.map((dep: ClassConstructor, index) => {
+        const resolvedDependencies = dependencies.map((dep: ClassConstructor) => {
 
             // if the dependency has an object signature, try to resolve this dependency
-            if (this.reflector.isReflectableClass(dep)) {
+            if (this.reflector.isInjectableClass(dep)) {
 
                 const existing = this.findExistingInstance(dep);
                 if (existing) {
@@ -77,12 +81,17 @@ export class Injector {
                 return this.instantiateClass(dep);
             }
 
-            // no object like signature found, resolve with the original value
-            return defaultArguments[index] || dep;
-        }) || [];
+            // throw an error if the dependency is a not injectable class
+            if (this.reflector.isClassButNotInjectable(dep)) {
+                throw `Diven dependency ${dep.__name} of ${(ctor as ClassConstructor).__name} is not injectable. Do you forget to add @Injectable()?`;
+            }
+
+            // default return for false reflection
+            return dep;
+        });
 
         // construct the class
-        const instance = new ctor(...resolvedDependencies);
+        const instance = new (ctor as ClassConstructor)(...resolvedDependencies);
         this.instanceStorage.push({
             ctor: ctor,
             instance: instance
@@ -99,7 +108,7 @@ export class Injector {
         return this.reflector
             .getMethodSignature(ctor, "constructor")
             .map(dependency => {
-                if (this.reflector.isReflectableClass(dependency)) {
+                if (this.reflector.isInjectableClass(dependency)) {
 
                     return this.instantiateClass(dependency);
                 } else if (this.reflector.isClassButNotInjectable(dependency)) {

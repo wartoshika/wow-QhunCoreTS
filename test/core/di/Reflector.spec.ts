@@ -33,13 +33,13 @@ class TestDependencyClass { }
         } as unknown as ClassConstructor;
 
         // without injectable flag it should fail
-        expect(this.reflector.isReflectableClass(transpiledClass)).to.equal(false);
+        expect(this.reflector.isInjectableClass(transpiledClass)).to.equal(false);
 
         // setting injectable flag
         (transpiledClass as InjectableClass).__injectable = true;
 
         // now the class should be injectable
-        expect(this.reflector.isReflectableClass(transpiledClass)).to.equal(true);
+        expect(this.reflector.isInjectableClass(transpiledClass)).to.equal(true);
     }
 
     @test "Can detect a non injectable class"() {
@@ -62,5 +62,21 @@ class TestDependencyClass { }
 
         // check for a non class type
         expect(this.reflector.isClassButNotInjectable(null)).to.equal(false);
+    }
+
+    @test "Must reflect method signature to an empty array when no reflection is set"() {
+
+        const testTranspiledClass = {};
+
+        // must be an empty array
+        expect(this.reflector.getMethodSignature(testTranspiledClass as ClassConstructor)).to.deep.equal([]);
+
+        // second test class where the methodName is missing in the declaration
+        const test2TranspiledClass = {
+            __staticReflection: {
+                constructor: [TestDependencyClass, "__type"]
+            }
+        } as unknown as ClassConstructor;
+        expect(this.reflector.getMethodSignature(test2TranspiledClass, "nonExistingMethod" as any)).to.deep.equal([]);
     }
 }
