@@ -40,7 +40,7 @@ export class SlashCommandRegistar {
 
         // update registered
         this.registeredCommandStack.currentCommands.push({
-            handler,
+            handler: handler,
             commands: slashName
         });
 

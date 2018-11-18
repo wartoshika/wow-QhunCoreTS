@@ -39,8 +39,8 @@ export class Network {
         return data.match(`.{1,${payloadLength}`).map(match => {
             return {
                 data: {
-                    identifierLength,
-                    identifier,
+                    identifierLength: identifierLength,
+                    identifier: identifier,
                     dataLength: match.length,
                     data: match
                 }
