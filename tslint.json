@@ -8,6 +8,8 @@
         "array-type": false,
         "interface-name": false,
         "object-literal-sort-keys": false,
+        "no-angle-bracket-type-assertion": false,
+        "whitespace": false,
         "max-line-length": [
             true,
             160

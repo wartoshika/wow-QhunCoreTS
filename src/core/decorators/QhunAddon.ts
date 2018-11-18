@@ -36,19 +36,4 @@ export function QhunAddon(
             }
         };
     });
-    /*
-        // go on with dependency injection
-        const injector = Injector.getInstance();
-        return <ClassDecorator>(<Target extends Function>(target: ClassConstructor<Target>) => {
-    
-            // save the original constructor function
-            const originalConstructor = (target.__init || target) as Function;
-    
-            // override existing constructor function
-            return (thisArg: object, ...otherArguments: any[]) => {
-    
-                originalConstructor(thisArg, ...injector.resolve(target));
-            };
-        });
-    */
 }

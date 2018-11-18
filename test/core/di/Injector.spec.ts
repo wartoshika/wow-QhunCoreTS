@@ -4,6 +4,7 @@ import { expect } from "chai";
 import { ClassConstructor } from "../../../src/core/types";
 import { InjectableClass } from "../../../src/core/di/InjectableClass";
 import { Injectable } from "../../../src/core/decorators/Injectable";
+import { PrepareClassDecorator } from "../../util/PrepareClassDecorator";
 
 @Injectable()
 class RequiredInjectableClass { }
@@ -194,5 +195,35 @@ class RequiredInjectableClass { }
         const injector = Injector.getInstance();
 
         expect(injector.instantiateClass(TestClass)).to.be.an.instanceof(TestClass);
+    }
+
+    @test "Injector can clear manually addon instances"() {
+
+        @PrepareClassDecorator(target => {
+            // injectable but no singleton
+            (target as InjectableClass).__injectable = true;
+            target.__staticReflection = {
+                constructor: []
+            };
+        })
+        class TestInjectable { }
+
+        // get injector
+        const injector = Injector.getInstance();
+
+        const testInstanceFirst = new TestInjectable();
+        injector.addInstance(TestInjectable, testInstanceFirst);
+
+        // get instance
+        expect(injector.instantiateClass(TestInjectable)).to.equal(testInstanceFirst);
+
+        // clear manually added instance
+        injector.clearManual();
+
+        // injector must instantiate a new instance
+        const testInstanceSecond = injector.instantiateClass(TestInjectable);
+        expect(testInstanceSecond).to.not.equal(testInstanceFirst);
+        expect(testInstanceSecond).to.be.an.instanceof(TestInjectable);
+
     }
 }
