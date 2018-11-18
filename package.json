@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@wartoshika/lua-declarations": "0.0.1",
-    "@wartoshika/qhun-transpiler": "^0.7.1",
+    "@wartoshika/qhun-transpiler": "^0.7.2",
     "@wartoshika/wow-declarations": "0.0.8"
   }
 }
