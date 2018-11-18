@@ -12,5 +12,5 @@ export interface ModuleConfig {
          * the variable name for storage purpose
          */
         savedVariableName: string
-    }
+    };
 }

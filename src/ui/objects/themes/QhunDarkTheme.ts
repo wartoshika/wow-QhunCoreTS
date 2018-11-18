@@ -27,4 +27,4 @@ export const QhunDarkTheme: WindowTheme = {
         }
     },
     actionButton: QhunDarkThemeActionButton
-}
+};

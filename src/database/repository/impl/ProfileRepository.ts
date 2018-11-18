@@ -14,4 +14,4 @@ export class ProfileRepository<ConfigStructure extends AnyStringSignatureObject>
     ) {
         super(database, "profile");
     }
-} 
+}

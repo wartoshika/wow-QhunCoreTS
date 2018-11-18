@@ -43,5 +43,5 @@ export class Output {
         } else {
             return `[${typeof arg}]: ${tostring(arg)}`;
         }
-    };
+    }
 }

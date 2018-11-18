@@ -20,13 +20,13 @@ export interface QhunAddonOptions {
          * additional data for the debugger
          */
         data: any
-    },
+    };
 
     /**
      * contains optional module specific configuration
      */
-    modules?: ModuleConfig
-};
+    modules?: ModuleConfig;
+}
 
 /**
  * a generic object constructor interface

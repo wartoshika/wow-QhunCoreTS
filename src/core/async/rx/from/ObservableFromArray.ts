@@ -12,4 +12,4 @@ export function observableFromArray<T extends any>(arrayData: T[]): Observable<T
         subscriber.complete();
         return new Subscription();
     });
-};
+}

@@ -37,7 +37,7 @@ export class DebugChatWindow implements Debugger {
 
         // index found?
         if (this.chatFrame === undefined) {
-            throw `The chat window with the name ${chatWindowName} chould not be found!`;
+            throw new Error(`The chat window with the name ${chatWindowName} chould not be found!`);
         }
 
         // remove all other channels from this window

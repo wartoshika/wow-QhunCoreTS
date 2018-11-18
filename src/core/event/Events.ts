@@ -3,5 +3,4 @@
  */
 export interface Events {
 
-    
 }

@@ -12,6 +12,17 @@ import { Timer } from "../../core/async/Timer";
 export class AnimationManager {
 
     /**
+     * get the animation manager instance
+     */
+    public static getInstance(): AnimationManager {
+
+        if (!AnimationManager.instance) {
+            AnimationManager.instance = new AnimationManager();
+        }
+        return AnimationManager.instance;
+    }
+
+    /**
      * the animation manager instance
      */
     private static instance: AnimationManager;
@@ -27,17 +38,6 @@ export class AnimationManager {
      */
     private injector: Injector;
 
-    /**
-     * get the animation manager instance
-     */
-    public static getInstance(): AnimationManager {
-
-        if (!AnimationManager.instance) {
-            AnimationManager.instance = new AnimationManager();
-        }
-        return AnimationManager.instance;
-    }
-
     constructor() {
 
         // get the injector
@@ -45,7 +45,7 @@ export class AnimationManager {
     }
 
     /**
-     * from 0 => 1: animates the frame and calls the callback with the calculated property value.  
+     * from 0 => 1: animates the frame and calls the callback with the calculated property value.
      * @param callback the function that should be called when a new animation state reached
      * @param transition use this transition function
      * @param overTime animates over this amount of time

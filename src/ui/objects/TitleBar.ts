@@ -26,7 +26,7 @@ export interface TitleBarOptions {
      * possible action or menu buttons of the title bar
      * @default: []
      */
-    actionButtons?: ActionButtonOptions[],
+    actionButtons?: ActionButtonOptions[];
 
     /**
      * the visible title text of the titlebar (text is centered)
@@ -126,7 +126,7 @@ export class TitleBar implements HasNativeFrame {
     }
 
     public getHeight(): number {
-        return this.mainFrame.GetHeight()
+        return this.mainFrame.GetHeight();
     }
 
     public getWidth(): number {

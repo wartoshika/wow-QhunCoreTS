@@ -4,15 +4,8 @@
 export class Optional<T> {
 
     /**
-     * @param value the wrapped value or null
-     */
-    public constructor(
-        private wrappedValue: T | null = null
-    ) { }
-
-    /**
      * creates an optional instance and provide the given value
-     * @param value the value to wrap 
+     * @param value the value to wrap
      */
     public static of<T>(value: T): Optional<T> {
 
@@ -26,6 +19,13 @@ export class Optional<T> {
 
         return new Optional<T>();
     }
+
+    /**
+     * @param value the wrapped value or null
+     */
+    public constructor(
+        private wrappedValue: T | null = null
+    ) { }
 
     /**
      * check if a value is present

@@ -21,7 +21,7 @@ export interface HasAnimation {
     /**
      * animation data for this frame
      */
-    __animation?: AnimationOptions
+    __animation?: AnimationOptions;
 }
 
 /**

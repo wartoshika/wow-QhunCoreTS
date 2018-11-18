@@ -4,8 +4,6 @@ import { ModuleConfig } from "./data/ModuleConfig";
 @Singleton()
 export class AddonOptions {
 
-    private static instance: AddonOptions;
-
     /**
      * get the addon options instance
      */
@@ -17,6 +15,8 @@ export class AddonOptions {
 
         return AddonOptions.instance;
     }
+
+    private static instance: AddonOptions;
 
     /**
      * name name of the current addon

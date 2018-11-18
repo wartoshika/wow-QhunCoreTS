@@ -19,7 +19,7 @@ export * from "./decorators/DatabaseModuleConfig";
 export * from "./rx/observableFromConfigRepository";
 
 // STORAGE FILES
-export * from "./storage/Database"
+export * from "./storage/Database";
 export * from "./storage/SavedVariablesDatabase";
 export * from "./storage/DatabaseProfile";
 

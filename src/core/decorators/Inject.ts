@@ -17,5 +17,5 @@ export function Inject(dependencyToInject: ClassConstructor): PropertyDecorator 
 
         // set the resolved dependency on the target
         target[property as string] = resolved;
-    }
-};
+    };
+}

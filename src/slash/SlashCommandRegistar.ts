@@ -40,7 +40,7 @@ export class SlashCommandRegistar {
 
         // update registered
         this.registeredCommandStack.currentCommands.push({
-            handler: handler,
+            handler,
             commands: slashName
         });
 
@@ -49,7 +49,7 @@ export class SlashCommandRegistar {
     }
 
     /**
-     * update the internal slash command list to allow wow fetch the correct 
+     * update the internal slash command list to allow wow fetch the correct
      * handler
      */
     private updateSlashCommandList(): void {

@@ -15,11 +15,12 @@ export class UnitRepository implements ReadonlyRepository<Unit, WowUnitId> {
         }
 
         // search by identifier
-        let [className, classId, raceName, raceId, gender, name, realm] = GetPlayerInfoByGUID(UnitGUID(identifier));
+        const [className, classId, raceName, raceId, gender, name, realm] = GetPlayerInfoByGUID(UnitGUID(identifier));
 
         // npc name check
+        let newName: string = name;
         if (name === undefined) {
-            name = GetUnitName(identifier, false);
+            newName = GetUnitName(identifier, false);
         }
 
         // build the entity
@@ -32,7 +33,7 @@ export class UnitRepository implements ReadonlyRepository<Unit, WowUnitId> {
             .setRace(raceId)
             .setRaceLocalized(raceName)
             .setGender(gender)
-            .setName(new UnitName(name, realm))
+            .setName(new UnitName(newName, realm));
     }
 
     public findAll(): Unit[] {

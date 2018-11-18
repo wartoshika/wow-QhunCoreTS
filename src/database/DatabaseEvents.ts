@@ -8,5 +8,5 @@ export interface DatabaseEvents extends Events {
         prefix: string | null,
         changedPath: string | null,
         newData: object
-    }
+    };
 }

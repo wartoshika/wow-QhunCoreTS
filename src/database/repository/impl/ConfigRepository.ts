@@ -13,15 +13,15 @@ import { DatabaseEvents } from "../../DatabaseEvents";
 export abstract class ConfigRepository<ConfigStructure extends AnyStringSignatureObject> implements Repository {
 
     /**
-     * the database prefix
-     */
-    private prefix: string;
-
-    /**
      * the event emitter instance
      */
     @Inject(EventEmitter)
     protected eventEmitter: EventEmitter<DatabaseEvents>;
+
+    /**
+     * the database prefix
+     */
+    private prefix: string;
 
     constructor(
         protected database: Database<ConfigStructure>,
@@ -38,7 +38,7 @@ export abstract class ConfigRepository<ConfigStructure extends AnyStringSignatur
 
         // empty check
         if (!this.prefix || this.prefix.length === 0) {
-            throw `The database prefix for ConfigRepository must be set.`;
+            throw new Error(`The database prefix for ConfigRepository must be set.`);
         }
 
         // init prefix if not exists

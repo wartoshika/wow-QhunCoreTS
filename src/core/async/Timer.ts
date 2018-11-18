@@ -49,7 +49,7 @@ export class Timer {
         // register the callback
         this.listeners[uuid] = {
             time: timeInMilliseconds,
-            callback: callback,
+            callback,
             counter: 0
         };
 

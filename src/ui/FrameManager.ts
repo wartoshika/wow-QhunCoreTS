@@ -61,7 +61,7 @@ export class FrameManager {
         frame.EnableMouse(false);
         frame.EnableMouseWheel(false);
         frame.UnregisterAllEvents();
-        frame.SetFrameStrata("MEDIUM")
+        frame.SetFrameStrata("MEDIUM");
         frame.SetFrameLevel(0);
         frame.Hide();
 

@@ -6,12 +6,12 @@ export interface WindowTheme {
     /**
      * the main background color of the window
      */
-    backgroundColor: RGBATuple,
+    backgroundColor: RGBATuple;
 
     /**
      * the normal state text color
      */
-    textColor: RGBTuple,
+    textColor: RGBTuple;
 
     /**
      * all title bar related themeing
@@ -37,12 +37,12 @@ export interface WindowTheme {
          * a seperate color for the close button hover state
          */
         closeActionButtonTheme: ActionButtonTheme
-    },
+    };
 
     /**
      * all normal created action buttons
      */
-    actionButton: ActionButtonTheme
+    actionButton: ActionButtonTheme;
 }
 
 /**
@@ -53,15 +53,15 @@ export interface ActionButtonTheme {
     /**
      * the text color of clickable action buttons
      */
-    textColor: RGBTuple,
+    textColor: RGBTuple;
 
     /**
      * the normal state background color of the action button
      */
-    backgroundColor: RGBATuple,
+    backgroundColor: RGBATuple;
 
     /**
      * the background color of the button when hovering
      */
-    hoverBackgroundColor: RGBATuple,
+    hoverBackgroundColor: RGBATuple;
 }

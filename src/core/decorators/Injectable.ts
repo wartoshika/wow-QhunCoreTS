@@ -14,5 +14,5 @@ export function Injectable(): ClassDecorator {
 
         // apply singleton and return the origin constructor
         return Singleton()(target);
-    })
-};
+    });
+}

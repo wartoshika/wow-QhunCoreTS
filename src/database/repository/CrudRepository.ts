@@ -27,7 +27,7 @@ export abstract class CrudRepository<TargetClass extends EntityHasPrimaryKey = E
 
         // empty check
         if (!this.prefix || this.prefix.length === 0) {
-            throw `The database prefix for CRUD repository must be set.`;
+            throw new Error(`The database prefix for CRUD repository must be set.`);
         }
 
         // init prefix if not exists
@@ -42,7 +42,7 @@ export abstract class CrudRepository<TargetClass extends EntityHasPrimaryKey = E
     }
 
     public find(id: Identifier): TargetClass {
-        const current = this.database.read()
+        const current = this.database.read();
         return (current[this.prefix].map(obj => this.instantiateExistingData(obj)) as TargetClass[])
             .filter(record => record.getPrimaryKey() === id)[0];
     }
@@ -61,7 +61,7 @@ export abstract class CrudRepository<TargetClass extends EntityHasPrimaryKey = E
 
             // search for the primary key
             if (recordInstance.getPrimaryKey && recordInstance.getPrimaryKey() === data.getPrimaryKey()) {
-                
+
                 // set found flag
                 foundExisting = true;
 

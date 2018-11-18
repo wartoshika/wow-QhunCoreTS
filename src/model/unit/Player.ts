@@ -13,7 +13,7 @@ export class Player extends Unit {
 
         // check if this is castable
         if (!entity.isPlayer()) {
-            throw `Given Entity[${entity.getPrimaryKey()}] could not be casted to a Player instance. Entity is not a player!`;
+            throw new Error(`Given Entity[${entity.getPrimaryKey()}] could not be casted to a Player instance. Entity is not a player!`);
         }
 
         return new Player()

@@ -13,7 +13,7 @@ export class NPC extends Unit {
 
         // check if this is castable
         if (!entity.isPlayer()) {
-            throw `Given Entity[${entity.getPrimaryKey()}] could not be casted to a NPC instance. Entity is not a NPC!`;
+            throw new Error(`Given Entity[${entity.getPrimaryKey()}] could not be casted to a NPC instance. Entity is not a NPC!`);
         }
 
         return new NPC()

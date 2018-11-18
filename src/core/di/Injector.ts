@@ -9,8 +9,6 @@ import { Injectable } from "../decorators/Injectable";
 @Injectable()
 export class Injector {
 
-    private static __instance: Injector;
-
     /**
      * get the injector singleton instance
      */
@@ -21,6 +19,8 @@ export class Injector {
         }
         return Injector.__instance;
     }
+
+    private static __instance: Injector;
 
     /**
      * the reflector instance to resolve method signatures
@@ -40,7 +40,7 @@ export class Injector {
 
         Injector.__instance = this;
 
-        // when resolving the injector via di, there is no need to 
+        // when resolving the injector via di, there is no need to
         // create another instance
         this.instanceStorage.push({
             ctor: Injector,
@@ -58,7 +58,7 @@ export class Injector {
 
         if (!this.findExistingInstance(ctor)) {
             this.instanceStorage.push({
-                ctor: ctor,
+                ctor,
                 instance: instance as Required<T>,
                 manual: true
             });
@@ -83,7 +83,7 @@ export class Injector {
 
         // test if the given ctor is injectable
         if (this.reflector.isClassButNotInjectable(ctor)) {
-            throw `Given class ${ctor.name} is not injectable and can not be instantiated! Do you forget to add @Injectable()?`;
+            throw new Error(`Given class ${ctor.name} is not injectable and can not be instantiated! Do you forget to add @Injectable()?`);
         }
 
         const existing = this.findExistingInstance(ctor);
@@ -111,7 +111,7 @@ export class Injector {
 
             // throw an error if the dependency is a not injectable class
             if (this.reflector.isClassButNotInjectable(dep)) {
-                throw `Diven dependency ${dep.__name} of ${(ctor as ClassConstructor).__name} is not injectable. Do you forget to add @Injectable()?`;
+                throw new Error(`Diven dependency ${dep.__name} of ${(ctor as ClassConstructor).__name} is not injectable. Do you forget to add @Injectable()?`);
             }
 
             // default return for false reflection
@@ -121,8 +121,8 @@ export class Injector {
         // construct the class
         const instance = new (ctor as ClassConstructor)(...resolvedDependencies);
         this.instanceStorage.push({
-            ctor: ctor,
-            instance: instance,
+            ctor,
+            instance,
             manual: false
         });
         return instance as T;
@@ -143,7 +143,7 @@ export class Injector {
                 } else if (this.reflector.isClassButNotInjectable(dependency)) {
 
                     // throw as it is an error
-                    throw `InjectionError: ${ctor.__name} needs a dependency ${dependency.__name} that cannot be injected. Do you forget to add the @Injectable() decorator?`;
+                    throw new Error(`InjectionError: ${ctor.__name} needs a dependency ${dependency.__name} that cannot be injected. Do you forget to add the @Injectable() decorator?`);
                 }
                 return dependency;
             });

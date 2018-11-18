@@ -10,8 +10,8 @@ interface PromiseLike<T> {
 
 interface PromiseHandler<T> {
 
-    onFulfilled: <R = T>(value: T) => void | R | PromiseLike<R>,
-    onRejected: (reason: any) => void,
+    onFulfilled: <R = T>(value: T) => void | R | PromiseLike<R>;
+    onRejected: (reason: any) => void;
 
 }
 
@@ -102,8 +102,8 @@ export class Promise<T> implements PromiseLike<T> {
 
         this.timer.timeout(() => {
             this.handlePromise({
-                onFulfilled: onFulfilled,
-                onRejected: onRejected
+                onFulfilled,
+                onRejected
             });
         }, 0);
     }

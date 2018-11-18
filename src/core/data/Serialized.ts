@@ -18,4 +18,4 @@ export declare type Serialized<TargetClass extends object> = {
          * all other data sets
          */
         [P in keyof TargetClass]: TargetClass[P]
-    }
+    };

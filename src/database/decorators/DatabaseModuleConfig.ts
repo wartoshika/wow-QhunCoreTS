@@ -27,7 +27,7 @@ export function DatabaseModuleConfig(key: keyof ModuleConfig["database"], throwI
         // check for value requirements
         if (!lookupSucceeded || (throwIfNotExists === true && value === null)) {
 
-            throw `Required database module config value does not exists. Required value's key was ${key}`;
+            throw new Error(`Required database module config value does not exists. Required value's key was ${key}`);
         }
 
         // return that value to set the new value of the parameter (for a parameter decorator)

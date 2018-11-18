@@ -91,7 +91,7 @@ export class Window implements HasNativeFrame {
     /**
      * all window options
      */
-    private options: Required<WindowOptions & { title: TitleBar }>
+    private options: Required<WindowOptions & { title: TitleBar }>;
 
     /**
      * @param options all initial options of this window
@@ -137,7 +137,7 @@ export class Window implements HasNativeFrame {
     }
 
     public getHeight(): number {
-        return this.mainFrame.GetHeight()
+        return this.mainFrame.GetHeight();
     }
 
     public getWidth(): number {

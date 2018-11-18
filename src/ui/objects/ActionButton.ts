@@ -16,29 +16,29 @@ export interface ActionButtonOptions {
      * the theme that should be applied on action buttons
      * @default: QhunDarkTheme.actionButton
      */
-    theme?: ActionButtonTheme,
+    theme?: ActionButtonTheme;
 
     /**
      * the text that should be displayed on the button
      */
-    text: string,
+    text: string;
 
     /**
      * the width of the button. null means auto width
      * @default: "auto"
      */
-    width?: number | "auto",
+    width?: number | "auto";
 
     /**
      * the height of the button
      * @default: 25
      */
-    height?: number,
+    height?: number;
 
     /**
      * the function that will be executed if the button has been clicked
      */
-    callback: (this: any, mouseButton?: WowMouseButton) => void
+    callback: (this: any, mouseButton?: WowMouseButton) => void;
 }
 
 /**
@@ -102,7 +102,7 @@ export class ActionButton implements HasNativeFrame {
     }
 
     public getHeight(): number {
-        return this.mainFrame.GetHeight()
+        return this.mainFrame.GetHeight();
     }
 
     public getWidth(): number {
