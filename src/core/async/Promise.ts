@@ -103,8 +103,8 @@ export class Promise<T> implements PromiseLike<T> {
 
         this.timer.timeout(() => {
             this.handlePromise({
-                onFulfilled,
-                onRejected
+                onFulfilled: onFulfilled,
+                onRejected: onRejected
             });
         }, 0);
     }

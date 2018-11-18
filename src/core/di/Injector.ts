@@ -57,7 +57,7 @@ export class Injector {
 
         if (!this.findExistingInstance(ctor)) {
             this.instanceStorage.push({
-                ctor,
+                ctor: ctor,
                 instance: instance as Required<T>,
                 manual: true
             });
@@ -121,8 +121,8 @@ export class Injector {
         // construct the class
         const instance = new (ctor as ClassConstructor)(...resolvedDependencies);
         this.instanceStorage.push({
-            ctor,
-            instance,
+            ctor: ctor,
+            instance: instance,
             manual: false
         });
         return instance as T;
