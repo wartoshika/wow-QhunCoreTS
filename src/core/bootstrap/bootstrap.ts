@@ -4,7 +4,7 @@ import { BootstrapPhase } from "./BootstrapPhase";
 /**
  * an internal class that bootstraps the addon to the given time
  */
-class AddonBootstrapper<T extends Object> {
+class AddonBootstrapper<T extends object> {
 
     /**
      * the mapping table for internal bootstrap phase to wow event name
@@ -79,6 +79,7 @@ class AddonBootstrapper<T extends Object> {
         this.eventFrame.UnregisterAllEvents();
         delete this.eventFrame;
 
+        // tslint:disable-next-line no-unused-expression
         new this.addon();
     }
 
@@ -109,7 +110,8 @@ class AddonBootstrapper<T extends Object> {
  * @param mainClass the main class of your addon
  * @param phase the phase when your addon will be constructed and bootstraped
  */
-export function bootstrapAddon<T extends Object>(mainClass: ClassConstructor<T>, phase: number = BootstrapPhase.ENTER_WORLD): void {
+export function bootstrapAddon<T extends object>(mainClass: ClassConstructor<T>, phase: number = BootstrapPhase.ENTER_WORLD): void {
 
+    // tslint:disable-next-line no-unused-expression
     new AddonBootstrapper(mainClass, phase, __FILE_META[1]);
 }

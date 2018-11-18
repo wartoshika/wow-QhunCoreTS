@@ -7,6 +7,7 @@ import { Singleton } from "./Singleton";
  */
 export function Injectable(): ClassDecorator {
 
+    // tslint:disable-next-line ban-types
     return <ClassDecorator>(<Target extends Function>(target: InjectableClass<Target>) => {
 
         // place a flag on the target that it is injectable

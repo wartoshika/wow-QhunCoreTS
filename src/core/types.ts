@@ -59,6 +59,7 @@ export interface ClassConstructor<T extends object = object> {
          * every class method with its dependencies in correct order
          */
         __staticReflection?: {
+            // tslint:disable-next-line ban-types
             [methodName: string]: Function[]
         };
     };

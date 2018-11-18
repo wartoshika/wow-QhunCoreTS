@@ -7,7 +7,8 @@ import { Serialized } from "../../core/data/Serialized";
 /**
  * a read and write repository of over an array of records of the save type.
  */
-export abstract class CrudRepository<TargetClass extends EntityHasPrimaryKey = EntityHasPrimaryKey, Identifier = any> implements ReadAndWriteRepository<TargetClass, Identifier> {
+export abstract class CrudRepository<TargetClass extends EntityHasPrimaryKey = EntityHasPrimaryKey, Identifier = any>
+    implements ReadAndWriteRepository<TargetClass, Identifier> {
 
     /**
      * the database prefix

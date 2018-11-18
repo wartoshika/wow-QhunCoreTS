@@ -7,7 +7,7 @@ import { ClassConstructor } from "../types";
  * @description a class that has this decorator will become a singleton class and is instantiated by the framework.
  */
 export function Inject(dependencyToInject: ClassConstructor): PropertyDecorator {
-    return (target: { [any: string]: any }, property: string | Symbol): void => {
+    return (target: { [anyKey: string]: any }, property: string | symbol): void => {
 
         // get the injector
         const injector = Injector.getInstance();

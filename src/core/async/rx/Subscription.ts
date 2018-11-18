@@ -9,7 +9,7 @@ export class Subscription implements Unsubscribable {
      * @param unsubscribe the function that will be executed when the subscription is canceled
      */
     constructor(
-        protected internalUnsubscribe: () => void = () => { }
+        protected internalUnsubscribe: () => void = () => { /* noop */ }
     ) { }
 
     public unsubscribe() {

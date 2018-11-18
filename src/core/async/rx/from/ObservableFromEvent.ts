@@ -10,7 +10,7 @@ export function observableFromEvent<T extends keyof WowTypedEvents>(event: T): O
 
         let eventFrame = CreateFrame("Frame");
         eventFrame.RegisterEvent(event);
-        eventFrame.SetScript("OnEvent", (frame, event, ...data) => {
+        eventFrame.SetScript("OnEvent", (frame, notUsedEvent, ...data) => {
             subscriber.next(data as WowTypedEvents[T]);
         });
         return new Subscription(() => {

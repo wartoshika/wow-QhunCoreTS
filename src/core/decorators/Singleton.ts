@@ -17,7 +17,7 @@ export function Singleton(): ClassDecorator {
     return <ClassDecorator>(<Target extends SingletonClass<any>>(target: Target) => {
 
         // create new class
-        return class Singleton extends target {
+        return class SingletonImpl extends target {
 
             constructor(...args: any[]) {
                 if (target.__singletonHasBeenCreated) {

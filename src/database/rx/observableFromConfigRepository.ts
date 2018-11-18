@@ -9,7 +9,9 @@ import { DatabaseEvents } from "../DatabaseEvents";
  * creates an observable from a config repository that emits an event whenever a value has been changed
  * @param repository the repository instance to observe
  */
-export function observableFromConfigRepository<T extends ConfigRepository<AnyStringSignatureObject>>(repository: T): Observable<DatabaseEvents["REPOSITORY_WRITE"]> {
+export function observableFromConfigRepository<T extends ConfigRepository<AnyStringSignatureObject>>(
+    repository: T
+): Observable<DatabaseEvents["REPOSITORY_WRITE"]> {
 
     return new Observable<DatabaseEvents["REPOSITORY_WRITE"]>(subscriber => {
 

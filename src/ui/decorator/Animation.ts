@@ -22,7 +22,7 @@ export interface AnimationOptions {
     hideAnimation?: AnimationOption | null;
 }
 
-interface AnimationClass<T extends Object> extends ClassConstructor<T>, HasAnimation { }
+interface AnimationClass<T extends object> extends ClassConstructor<T>, HasAnimation { }
 
 /**
  * override the show function

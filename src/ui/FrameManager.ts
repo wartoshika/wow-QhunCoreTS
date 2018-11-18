@@ -16,9 +16,12 @@ export class FrameManager {
 
     /**
      * creates a new frame object or use a recycled one from the frame pool
-     * @param name Name of the newly created frame. If nil, no frame name is assigned. The function will also set a global variable of this name to point to the newly created frame
+     * @param name Name of the newly created frame. If nil, no frame name is assigned.
+     * The function will also set a global variable of this name to point to the newly created frame
      * @param parent the parent frame to append the frame to
-     * @param inheritsFrame a comma-delimited list of names of virtual frames to inherit from (the same as in XML). If nil, no frames will be inherited. These frames cannot be frames that were created using this function, they must be created using XML with virtual="true" in the tag.
+     * @param inheritsFrame a comma-delimited list of names of virtual frames to inherit from (the same as in XML).
+     * If nil, no frames will be inherited. These frames cannot be frames that were created using this function,
+     * they must be created using XML with virtual="true" in the tag.
      * @param id ID to assign to the frame. See API Frame SetID
      */
     public create(name?: string, parent?: WowUiObject, inheritsFrame?: string, id?: number): WowFrame {

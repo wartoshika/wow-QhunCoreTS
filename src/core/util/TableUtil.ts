@@ -8,7 +8,10 @@ export class TableUtil {
      * @param defaultValues the defalt values
      * @return the original filled table
      */
-    public static fillTableDefault<T extends object>(original: StrictSignatureObject<T>, defaultValues: Required<StrictSignatureObject<T>>): Required<StrictSignatureObject<T>> {
+    public static fillTableDefault<T extends object>(
+        original: StrictSignatureObject<T>,
+        defaultValues: Required<StrictSignatureObject<T>>
+    ): Required<StrictSignatureObject<T>> {
 
         // if there is no existing data, return the default
         if (!original) {

@@ -15,11 +15,12 @@ export class Injector {
     public static getInstance(): Injector {
 
         if (!Injector.__instance) {
-            new Injector();
+            Injector.__instance = new Injector();
         }
         return Injector.__instance;
     }
 
+    // tslint:disable-next-line variable-name
     private static __instance: Injector;
 
     /**
@@ -31,14 +32,12 @@ export class Injector {
      * the storage of allready instantiated objects
      */
     private instanceStorage: {
-        ctor: Function,
-        instance: Object,
+        ctor: ClassConstructor,
+        instance: object,
         manual: boolean
     }[] = [];
 
     constructor() {
-
-        Injector.__instance = this;
 
         // when resolving the injector via di, there is no need to
         // create another instance
@@ -54,7 +53,7 @@ export class Injector {
      * @param ctor the constructor of the instance
      * @param instance the instance itself
      */
-    public addInstance<T extends Object>(ctor: ClassConstructor<T>, instance: Partial<T>): void {
+    public addInstance<T extends object>(ctor: ClassConstructor<T>, instance: Partial<T>): void {
 
         if (!this.findExistingInstance(ctor)) {
             this.instanceStorage.push({
@@ -79,7 +78,7 @@ export class Injector {
      * instantiates a new class by its constructor and resolves all dependencies
      * @param ctor the class to instantiate
      */
-    public instantiateClass<T extends Object>(ctor: ClassConstructor<T>): T {
+    public instantiateClass<T extends object>(ctor: ClassConstructor<T>): T {
 
         // test if the given ctor is injectable
         if (this.reflector.isClassButNotInjectable(ctor)) {
@@ -100,9 +99,9 @@ export class Injector {
             // if the dependency has an object signature, try to resolve this dependency
             if (this.reflector.isInjectableClass(dep)) {
 
-                const existing = this.findExistingInstance(dep);
-                if (existing) {
-                    return existing;
+                const existingInst = this.findExistingInstance(dep);
+                if (existingInst) {
+                    return existingInst;
                 }
 
                 // no candidate found, construct a new instance
@@ -111,7 +110,8 @@ export class Injector {
 
             // throw an error if the dependency is a not injectable class
             if (this.reflector.isClassButNotInjectable(dep)) {
-                throw new Error(`Diven dependency ${dep.__name} of ${(ctor as ClassConstructor).__name} is not injectable. Do you forget to add @Injectable()?`);
+                const err = `Diven dependency ${dep.__name} of ${(ctor as ClassConstructor).__name} is not injectable. Do you forget to add @Injectable()?`;
+                throw err;
             }
 
             // default return for false reflection
@@ -132,7 +132,7 @@ export class Injector {
      * resolves all declared dependencies for the given class
      * @param ctor the target class
      */
-    public resolve(ctor: ClassConstructor): Object[] {
+    public resolve(ctor: ClassConstructor): object[] {
 
         return this.reflector
             .getMethodSignature(ctor, "constructor")
@@ -143,7 +143,9 @@ export class Injector {
                 } else if (this.reflector.isClassButNotInjectable(dependency)) {
 
                     // throw as it is an error
-                    throw new Error(`InjectionError: ${ctor.__name} needs a dependency ${dependency.__name} that cannot be injected. Do you forget to add the @Injectable() decorator?`);
+                    // tslint:disable-next-line max-line-length
+                    const err = `InjectionError: ${ctor.__name} needs a dependency ${dependency.__name} that cannot be injected. Do you forget to add the @Injectable() decorator?`;
+                    throw err;
                 }
                 return dependency;
             });

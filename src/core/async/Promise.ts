@@ -49,7 +49,8 @@ export class Promise<T> implements PromiseLike<T> {
     private observers: PromiseHandler<T>[] = [];
 
     /**
-     * @param resolver your callback function. when your promise is fulfilled, you will receive the requested data. you can catch the reject case in the second callback function.
+     * @param resolver your callback function. when your promise is fulfilled, you will receive the requested data.
+     * you can catch the reject case in the second callback function.
      */
     constructor(
         resolver: (onFulfilled: (value: T | PromiseLike<T>) => void, onRejected: (reason: any) => void) => void | PromiseLike<T>
