@@ -17,7 +17,7 @@ export function Singleton(): ClassDecorator {
     return <ClassDecorator>(<Target extends SingletonClass<any>>(target: Target) => {
 
         // create new class
-        const singletonClass = class Singleton extends target {
+        return class Singleton extends target {
 
             constructor(...args: any[]) {
                 if (target.__singletonHasBeenCreated) {
@@ -32,7 +32,5 @@ export function Singleton(): ClassDecorator {
                 super(...args);
             }
         };
-
-        return singletonClass;
     });
 }

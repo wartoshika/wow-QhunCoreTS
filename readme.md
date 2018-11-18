@@ -50,9 +50,7 @@ TypeScript is a superset of JavaScript and it's syntax is (in my opinion) easy t
 The following example prints a message onto the console when the addon has been loaded.
 
 ```typescript
-@QhunAddon({
-    addonName: "MyCoolAddon"
-})
+@QhunAddon()
 class MyCoolAddon {
 
     @TocValue("Version")

@@ -1,7 +1,7 @@
 import { QhunAddonOptions, ClassConstructor } from "../types";
 import { AddonOptions } from "../AddonOptions";
-import { bootstrapDebugger } from "../debug/bootstrapDebugger";
 import { Injector } from "../di/Injector";
+import { Singleton } from "./Singleton";
 
 /**
  * a class level decorator to bootstrap your world of warcraft addon.
@@ -16,17 +16,39 @@ export function QhunAddon(
     addonOptionsInstance.addonName = __FILE_META[1];
     addonOptionsInstance.moduleConfig = options.modules || {};
 
-    // go on with dependency injection
-    const injector = Injector.getInstance();
-    return <ClassDecorator>(<Target extends Function>(target: ClassConstructor<Target>) => {
+    return <ClassDecorator>(<Target extends object>(target: ClassConstructor<Target>) => {
 
-        // save the original constructor function
-        const originalConstructor = target.__init;
+        // get injector to resolve dependencies
+        const injector = Injector.getInstance();
+        const resolvedDependencies = injector.resolve(target);
 
-        // override existing constructor function
-        return (thisArg: object, ...otherArguments: any[]) => {
+        // add a child class that implements the singleton pattern
+        return class QhunAddonEntrypoint extends (Singleton()(target) as ClassConstructor) {
 
-            originalConstructor(thisArg, ...injector.resolve(target));
+            // override existing constructor function
+            constructor(thisArg: object) {
+
+                // build new constructor params
+                if (thisArg) {
+                    resolvedDependencies.unshift(thisArg);
+                }
+                super(...resolvedDependencies);
+            }
         };
     });
+    /*
+        // go on with dependency injection
+        const injector = Injector.getInstance();
+        return <ClassDecorator>(<Target extends Function>(target: ClassConstructor<Target>) => {
+    
+            // save the original constructor function
+            const originalConstructor = (target.__init || target) as Function;
+    
+            // override existing constructor function
+            return (thisArg: object, ...otherArguments: any[]) => {
+    
+                originalConstructor(thisArg, ...injector.resolve(target));
+            };
+        });
+    */
 }

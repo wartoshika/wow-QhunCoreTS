@@ -10,3 +10,10 @@ Injector.getInstance().addInstance(Logger, new MockedLogger());
 (global as any).CreateFrame = (type: string, name: string, parent: WowFrame, inherits: string, id: number) => {
     return new MockedWowFrame(type, name, parent, inherits, id);
 };
+
+// mock __FILE_META
+var __FILE_META: __FILE_META = [
+    "testAddonName",
+    "testAddonName"
+];
+(global as any).__FILE_META = __FILE_META;
