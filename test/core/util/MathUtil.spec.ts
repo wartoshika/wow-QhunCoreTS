@@ -4,7 +4,6 @@ import { expect } from "chai";
 
 @suite class MathUtilSpec {
 
-
     @test "MathUtil.round()"() {
 
         expect(MathUtil.round(1, 0)).to.equal(1);

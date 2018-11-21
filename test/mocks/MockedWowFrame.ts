@@ -1,6 +1,10 @@
 export class MockedWowFrame implements Partial<WowFrame> {
 
-    private onUpdateTimer: NodeJS.Timer;
+    public static instances: MockedWowFrame[] = [];
+
+    public onUpdateTimer: NodeJS.Timer;
+    public registeredEvents: WowEvent[] = [];
+    public onEventCallback: (payload?: any) => void;
 
     constructor(
         private type: string,
@@ -8,7 +12,9 @@ export class MockedWowFrame implements Partial<WowFrame> {
         private parent: WowFrame,
         private inherits: string,
         private id: number
-    ) { }
+    ) {
+        MockedWowFrame.instances.push(this);
+    }
 
     public SetScript(name: string, callback: Function | null): void {
         switch (name) {
@@ -21,6 +27,28 @@ export class MockedWowFrame implements Partial<WowFrame> {
                     clearInterval(this.onUpdateTimer);
                 }
                 break;
+            case "OnEvent":
+                this.onEventCallback = callback as any;
+                break;
         }
+    }
+
+    public RegisterEvent(eventName: WowEvent): void {
+
+        this.registeredEvents.push(eventName);
+    }
+
+    public UnregisterAllEvents(): void {
+        this.registeredEvents = [];
+        delete this.onEventCallback;
+    }
+
+    public static emitWowEvent<E extends keyof WowTypedEvents>(name: E, payload?: WowTypedEvents[E]): void {
+
+        MockedWowFrame.instances.forEach(instance => {
+            if (instance.registeredEvents.indexOf(name) > -1 && typeof instance.onEventCallback === "function") {
+                instance.onEventCallback(payload);
+            }
+        });
     }
 }

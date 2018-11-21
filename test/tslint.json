@@ -1,0 +1,14 @@
+{
+    "extends": [
+        "../tslint.json"
+    ],
+    "rules": {
+        "member-access": false,
+        "ban-types": true,
+        "member-ordering": false,
+        "max-classes-per-file": false,
+        "no-unused-expression": false,
+        "eofline": false,
+        "no-empty": false
+    }
+}

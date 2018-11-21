@@ -11,9 +11,8 @@ Injector.getInstance().addInstance(Logger, new MockedLogger());
     return new MockedWowFrame(type, name, parent, inherits, id);
 };
 
-// mock __FILE_META
-var __FILE_META: __FILE_META = [
-    "testAddonName",
-    "testAddonName"
-];
-(global as any).__FILE_META = __FILE_META;
+// enable __FILE_META mock
+(global as any).__FILE_META = {
+    [0]: undefined,
+    [1]: "addon"
+};
