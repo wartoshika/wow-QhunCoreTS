@@ -78,7 +78,7 @@ export class Optional<T> {
      * get the wrapped value or throw an exception if no value is present
      * @param errorMessage the error message that should be thrown when no wraped value is present
      */
-    public getOrThrow(errorMessage: string): T | void {
+    public getOrThrow(errorMessage: string): T {
 
         if (this.isPresent()) {
 
